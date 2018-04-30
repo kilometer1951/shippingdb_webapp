@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <title>New Cargo</title>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+         <link rel="stylesheet" href="/css/newcargo.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+    
+    </head>
+    <body><br>
+<div class="container-fluid">
+    <h3 class="text-center">New Cargo</h3>
+    <div class="client-body" id="clientBody">
+        <form>
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search Clients" class="searchClients" onkeyup="getClients(this.value)">
+                  </div>
+              </div>
+              <div class="col-md-8 ">
+                  <div class="form-group" style="float:right;">
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='/cargo'"><i class="fas fa-ban"></i> Cancel</button>
+                  </div>
+              </div>
+            </div>
+        </form>
+        <div class="row">
+          <div class="col-md-6">
+              <div class="table-responsive clientDataSection">
+               <table class="table table-striped">
+                    <thead class="table-success">
+                      <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody class="client_table_body">
+                      <%  clientsData.forEach(function(content){ %>
+                      <tr >
+                        <td><%= content.first_name%></td>
+                        <td><%= content.last_name%></td>
+                        <td><%= content.email%></td>
+                        <td>
+                            <button class="btn btn-outline-info btn-sm newCargoBtn" id="<%= content._id%>"><i class="fas fa-plus"></i> New Cargo</button>
+                        </td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+              </table>
+            </div>
+          </div> 
+          <div class="col-md-6">
+            <div class="newCargoSection" id="newCargoSection">
+                <div class="activateCargoEntry" id="activateCargoEntry">
+                    <h5 style="text-align:center;" id="clientName"></h5><br>
+                    <span class="client_ID" id=""></span>
+                    <div class="row">
+                      
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter vin to search" id="vinsearch">
+                            <p id="error" style="color:red;display:none;">VIN ERROR BAD REQUEST VIN DOES NOT EXIST</p>
+                          </div>
+                        </div>
+                      
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <button class="btn btn-warning" id="vinsearchBtn">Search</button>
+                          </div>
+                        </div>
+                      
+                      
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Car Details:</label>
+                            <input type="text" class="form-control" name="cardetails" id="cardetails">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Vin:</label>
+                            <input type="text" class="form-control" name="vin"  id="vin">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Value For AES:</label>
+                            <input type="text" class="form-control" name="aes" id="aes">
+                          </div>
+                       </div>
+                       <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Personal Effects:</label>
+                            <textarea class="form-control" name="personal_effect" rows="6" style="resize:none;" id="personal_effect"></textarea>
+                          </div>
+                       </div>
+                       <div class="col-md-6" style="text-align:center;">
+                          <div class="form-group">
+                            <button type="button" class="btn btn-primary saveAndNew" id=""><i class="fas fa-plus"></i> Add and New</button>
+                          </div>
+                      </div>
+                      <div class="col-md-6" style="text-align:center;display:block;">
+                          <div class="form-group" >
+                            <button type="button" class="btn btn-info saveAndClose" id=""><i class="far fa-newspaper"></i> Add and Return</button>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="loader"></div>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+</div>
+<div id="snackbar">Cargo Saved</div>
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+        <!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/js/cargo.js"></script>
+
+</body>
+</html>

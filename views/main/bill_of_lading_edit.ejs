@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Bill Of Lading</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     <!--<link rel="stylesheet" href="/css/newcargo.css">-->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-color:#fafafa ;
+        }
+        .cargoSection {
+            width:70%;
+            margin:0 auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background-color: #fff;
+            border-radius:5px;
+            margin-bottom:20px;
+            padding:20px;
+        }
+           
+       
+    </style>
+</head>
+<body>
+   <div class="container-fluid"><br>
+      <div class="cargoSection">
+          <h3 class="text-center" style="padding:20px;color:#3F729B;">Editing Bill Of Lading For <%=foundData.Client[0].full_name%> </h3>
+         
+          <form action="/bill_of_lading/<%=foundData._id%>/edit" method="POST">
+              <div class="row">
+                        <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Description of Charges</label>
+                                 <textarea class="form-control" name="description_of_charges"> <%=foundData.description_of_charges%></textarea>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Destination Agent</label>
+                                 <textarea class="form-control" name="destination_agent" > <%=foundData.destination_agent%> </textarea>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Co-Loaded With</label>
+                                 <input type="text" class="form-control" name="co_loaded_with" value="<%=foundData.co_loaded_with%>">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Total Pre-Paid</label>
+                                 <input type="text" class="form-control" name="total_pre_paid" value="<%=foundData.total_pre_paid%>">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Total Collected</label>
+                                 <input type="text" class="form-control" name="total_collected" value="<%=foundData.total_collected%>">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Containerlized</label><br>
+                                 <label class="radio-inline " style="margin-right:30px;">
+                                   <input type="radio" name="containerlized" id="yes" Value="Yes" <%= foundData.containerlized === "Yes" ? "checked" : "" %>> Yes
+                                 </label>
+                                 <label class="radio-inline">
+                                    <input type="radio" name="containerlized" id="no" value="No" <%= foundData.containerlized === "No" ? "checked" : "" %>> No
+                                 </label>
+                             </div>
+                         </div>
+                    </div>
+            <button type="submit" class="btn btn-primary">Update and Return</button>
+            <a class="btn btn-danger" href="/bill_lading">Return back</a>
+          </form>
+      </div>
+    </div>
+    
+ 
+        
+        
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+<!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

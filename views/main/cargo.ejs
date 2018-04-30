@@ -1,0 +1,238 @@
+
+<style>
+    .client-body {
+        margin-top:20px;
+        z-index:-1;
+    }
+    
+    .clientDataSection {
+        height:70vh;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    
+    .loader {
+            width:100px;
+            height:100px;
+            top:0;
+            margin-top:40vh;
+            margin-left:79vh;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top-color: #1abc9c;
+            border-bottom-color: #3498db;
+            animation: coloredspin 4s linear infinite;
+            display:none;
+            position:absolute;
+            z-index:1;
+
+        }
+        @keyframes coloredspin {
+              0%{
+                transform: rotate(0deg) scale(1);
+                border-top-color: #1abc9c;
+                border-bottom-color: #1abc9c;
+              }
+              25% {
+                border-top-color: #2ecc71;
+                border-bottom-color: #2ecc71;
+              }
+              50% {
+                transform: rotate(360deg) scale(1.05);
+                border-top-color: #3498db;
+                border-bottom-color: #3498db;
+              }
+              75% {
+                border-top-color: #9b59b6;
+                border-bottom-color: #9b59b6;
+              }
+              100%{
+                transform: rotate(720deg) scale(1);
+                border-top-color: #1abc9c;
+                border-bottom-color: #1abc9c;
+              }
+            }
+            
+            
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+
+</style>
+<div class="container-fluid">
+    <div style="margin-top:70px;"></div>
+    <h3 class="text-center">Cargo Description</h3>
+    <div class="client-body" id="clientBody">
+        <form>
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <select class="form-control" id="clients_dropdown">
+                        <option>Display cargo per client</option>
+                        <% clientsData.forEach(function(clients){ %>
+                           <option value="<%=clients._id%>"><%=clients.full_name%></option>
+                        <% }) %>
+                    </select>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-primary newCargo" id="newCargo" onclick="window.location.href='/cargo/displaynewcargo'">New Cargo</button>
+                  </div>
+              </div>
+              <div class="col-md-4" >
+                  <div class="form-group" style="float:right;">
+                    <button type="button" class="btn btn-warning newCargo" id="newCargo" onclick="location.reload()"><i class="fas fa-sync-alt"></i> Reload Page Data</button>
+                  </div>
+              </div>
+            </div>
+        </form>
+            <table class="table table-striped">
+                <thead class="table-success">
+                  <tr>
+                    <th>Date Added</th>
+                    <th>Clients Name</th>
+                    <th style="background-color:#00897b  ;color:#fff;">Cars</th>
+                    <th>Personal Effect</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="cargo_table_body">
+                  <% CargoData.forEach(function(content) { %>
+                  
+                  <tr id="cargo_rowID">
+                    <td><%=(moment.parseZone(content.createdAt).format('l') === moment.parseZone(new Date()).format('l') ? 'Today': moment(content.createdAt).format("ll"))%></td>
+                    <td><%=content.Client[0].full_name%></td>
+                    <td style="background-color:#37474F;color:#fff;" id="car_td">
+                      <% content.Cars.forEach(function(allCars, idx, array){ %>
+                           <span id="cars_columnId<%=content._id%>"><%=displayCars(allCars.cardetails, idx, array)%></span>
+                      <% }); %>
+                    </td>
+                    <td><%=content.personal_effect%></td>
+                    <td>
+                        <button class="btn btn-outline-dark btn-sm openAddMoreCars" id="<%=content._id%>" data-toggle="modal" data-target="#addMoreCarsModal"><i class="fas fa-plus"></i> Add more cars</button>
+                        <a class="btn btn-outline-info btn-sm openEditModal" href="cargo/<%=content._id%>/editRoute"><i class="far fa-edit"></i> Edit</a>
+                        <button class="btn btn-outline-danger btn-sm deleteMessage1" id="<%=content._id%>" data-toggle="modal" data-target=".deleteMessageModal1"><i class="far fa-trash-alt"></i> Delete</button>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+    </div>
+</div>
+
+
+
+<!--Delete Client-->
+<div class="modal fade deleteMessageModal1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+         <div style="padding:10px;text-align:center;">
+           <p>Delete this data ?</p>
+           <span id="client_id"></span>
+           <button class="btn btn-info" data-dismiss="modal">Cancel</button>
+           <button class="btn btn-danger delete1" id="">Delete</button>
+         </div>
+    </div>
+  </div>
+</div>
+
+<!--Add More Cars-->
+<div class="modal fade" id="addMoreCarsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add More Cars</h5>
+      </div>
+      <div class="modal-body">
+         <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Enter vin to search" id="vinsearch">
+                  <p id="error" style="color:red;display:none;">VIN ERROR BAD REQUEST VIN DOES NOT EXIST</p>
+                </div>
+              </div>
+            
+              <div class="col-md-6">
+                <div class="form-group">
+                  <button class="btn btn-warning" id="vinsearchBtn">Search</button>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Car Details:</label>
+                  <input type="text" class="form-control" name="cardetails" id="cardetails">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Vin:</label>
+                  <input type="text" class="form-control" name="vin"  id="vin">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Value For AES:</label>
+                  <input type="text" class="form-control" name="aes" id="aes">
+                </div>
+             </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary addMoreCarsAndNew" id="">Add and New</button>
+        <button type="button" class="btn btn-info addMoreCarsAndClose" id="">Add and Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loader"></div>
+<div id="snackbar">Cargo Added</div>
+<div class="nodata" style="text-align:center;font-size:40px;display:none;">
+  <p>
+    <i class="fas fa-people-carry"></i><br>
+    <span class="nodata_text">No Cargo Found</span>
+  </p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="/js/cargo.js"></script>

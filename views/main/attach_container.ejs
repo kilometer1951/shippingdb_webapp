@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>New Cargo</title>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+         <link rel="stylesheet" href="/css/newcargo.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+    
+    </head>
+    <body><br>
+<div class="container-fluid">
+    <h3 class="text-center">Attach a container to power to POA / NRA Form</h3>
+    <div class="client-body" id="clientBody">
+        <form>
+            <div class="row">
+             
+              <div class="col-md-12">
+                  <div class="form-group" style="float:left;">
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='/powerOfAttroney_nra'"><i class="fas fa-ban"></i> Cancel</button>
+                  </div>
+              </div>
+            </div>
+        </form>
+             <table class="table table-striped">
+                <thead class="table-success">
+                  <tr>
+                    <th>Date Added</th>
+                    <th>Clients Name</th>
+                    <th style="background-color:#00897b  ;color:#fff;">Cars</th>
+                    <th>Personal Effect</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="cargo_table_body">
+                  <% CargoData.forEach(function(content) { %>
+                  
+                  <tr id="cargo_rowID">
+                    <td><%=(moment.parseZone(content.createdAt).format('l') === moment.parseZone(new Date()).format('l') ? 'Today': moment(content.createdAt).format("ll"))%></td>
+                    <td><%=content.Client[0].full_name%></td>
+                    <td style="background-color:#37474F;color:#fff;" id="car_td">
+                      <% content.Cars.forEach(function(allCars, idx, array){ %>
+                           <span id="cars_columnId<%=content._id%>"><%=displayCars(allCars.cardetails, idx, array)%></span>
+                      <% }); %>
+                    </td>
+                    <td><%=content.personal_effect%></td>
+                    <td>
+                        <% if( String(content._id) !== String(foundData[0].Cargo) ) { %>
+                            <form action="/attachCargo/<%=content._id%>/to/<%=foundData[0]._id%>" method="POST">
+                                <button class="btn btn-outline-dark btn-sm attach_container" id="<%=content._id%>" ><i class="fas fa-plus"></i> Attach Container</button>
+                            </form>
+                        <% } else {%>
+                            <button class="btn btn-dark btn-sm" disabled>Cotainer Attached</button>
+                        <% } %>
+                          
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+    </div>
+</div>
+<div class="loader"></div>
+<div id="snackbar">Cargo Saved</div>
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+        <!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/js/cargo.js"></script>
+
+</body>
+</html>

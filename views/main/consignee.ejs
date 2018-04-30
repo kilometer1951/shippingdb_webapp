@@ -1,0 +1,216 @@
+
+<style>
+    .client-body {
+        margin-top:20px;
+        z-index:-1;
+    }
+    
+    .clientDataSection {
+        height:70vh;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+/*    tbody {*/
+/*    display:block;*/
+/*    height:65vh;*/
+/*    overflow:auto;*/
+/*}*/
+/*  thead, tbody tr {*/
+/*    display:table;*/
+/*    width:100%;*/
+/*    table-layout:fixed;*/
+/*}*/
+
+
+</style>
+<div class="container-fluid">
+    <div style="margin-top:70px;"></div>
+    <h3 class="text-center">Register Consignee</h3>
+    <div class="client-body" id="clientBody">
+        <form>
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search Clients" class="searchClients" onkeyup="getClients(this.value)">
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-primary newClient" data-toggle="modal" data-target="#newclientsModal" id="newClient">New Consignee</button>
+                  </div>
+              </div>
+            </div>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-success">
+                  <tr>
+                    <th>Name</th>
+                    <th>Tel</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="client_table_body">
+                  <%  data.forEach(function(content){ %>
+                  <tr>
+                    <td><%= content.first_name%></td>
+                    <td><%= content.pnum%></td>
+                    <td><%= content.email%></td>
+                    <td><%= content.address%></td>
+                    <td>
+                        <button class="btn btn-info btn-sm openEditModal" id="<%= content._id%>" data-toggle="modal" data-target="#editClientModal"><i class="far fa-edit"></i> Edit</button>
+                        <button class="btn btn-danger btn-sm deleteMessage" id="<%= content._id%>" data-toggle="modal" data-target=".deleteMessageModal"><i class="far fa-trash-alt"></i> Delete</button>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
+<!-- New Client Modal -->
+<div class="modal fade" id="newclientsModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="background-color:#fafafa  ;">
+      <div class="modal-header" style="margin: 0 auto;">
+        <h5>New Consignee</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+             <div class="row " style=" background-color:#e0f2f1; padding:10px;">
+                 <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="clientdropdown">Client</label>
+                    <select class="form-control" id="clientdropdown" name="clientdropdown">
+                      <option>Select a Client</option>
+                    </select>
+                  </div>
+                </div>
+               <div class="col-md-8D">
+                <div class="form-group">
+                  <label for="cfirst_name">Name</label>
+                  <input class="form-control" name="cfirst_name" id="cfirst_name">
+                </div>
+              </div>
+              <!--<div class="col-md-4">-->
+              <!--  <div class="form-group">-->
+              <!--    <label for="clast_name">Last Name</label>-->
+              <!--    <input class="form-control " name="clast_name" id="clast_name" >-->
+              <!--  </div>-->
+              <!--</div>-->
+              
+             </div>
+              <div class="row "  style=" background-color:#ffe082 ; padding:10px;">
+                <div class="col-md-4">
+                <div class="form-group">
+                  <label for="cpnum">Phone Number</label>
+                  <input class="form-control" name="cpnum" id="cpnum">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="cemail">Email</label>
+                  <input class="form-control" name="cemail" id="cemail" type="email">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="careof">Care Of</label>
+                  <input class="form-control" name="careof" id="careof">
+                </div>
+              </div>
+              </div>
+              <div class="row"  style=" background-color:#c5e1a5 ; padding:10px;">
+                 <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="country">Country</label>
+                    <select class="form-control" id="country" name="country">
+                      <option>Select a Country</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <input class="form-control" name="address" id="address">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <input class="form-control" name="state" id="state">
+                  </div>
+                </div>
+              </div>
+              <div class="row"  style=" background-color:#a5d6a7; padding:10px;">
+                 <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="city">City</label>
+                      <input class="form-control" name="city" id="city">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="postalcode">Postal Code</label>
+                      <input class="form-control" name="postalcode" id="postalcode">
+                    </div>
+                  </div>
+                  
+              </div>
+              
+        </form>
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="saveandnew">Save and New</button>
+        <button type="button" class="btn btn-primary" id="saveandclose">Save and close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closemodal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Client Modal -->
+<div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="background-color:#fafafa;">
+      <div class="modal-header" style="margin: 0 auto;">
+        <h5>Edit Client</h5>
+      </div>
+      <div class="modal-body" id="editmodal_body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary updateRecord" id="">Update Record</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closemodal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete Client-->
+<div class="modal fade deleteMessageModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+         <div style="padding:10px;text-align:center;">
+           <p>Delete this data ?</p>
+           <span id="client_id"></span>
+           <button class="btn btn-info" data-dismiss="modal">Cancel</button>
+           <button class="btn btn-danger delete" id="">Delete</button>
+         </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="nodata" style="text-align:center;font-size:40px;display:none;">
+  <p>
+    <i class="fas fa-users"></i><br>
+    <span class="nodata_text">No Client Found...</span>
+  </p>
+</div>
+<script src="/js/consignee.js"></script>
+

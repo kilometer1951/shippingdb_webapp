@@ -1,0 +1,315 @@
+
+<style>
+    .client-body {
+        margin-top:20px;
+        z-index:-1;
+    }
+    
+    .clientDataSection {
+        height:70vh;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    
+    .loader {
+            width:100px;
+            height:100px;
+            top:0;
+            margin-top:40vh;
+            margin-left:79vh;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top-color: #1abc9c;
+            border-bottom-color: #3498db;
+            animation: coloredspin 4s linear infinite;
+            display:none;
+            position:absolute;
+            z-index:1;
+
+        }
+        @keyframes coloredspin {
+              0%{
+                transform: rotate(0deg) scale(1);
+                border-top-color: #1abc9c;
+                border-bottom-color: #1abc9c;
+              }
+              25% {
+                border-top-color: #2ecc71;
+                border-bottom-color: #2ecc71;
+              }
+              50% {
+                transform: rotate(360deg) scale(1.05);
+                border-top-color: #3498db;
+                border-bottom-color: #3498db;
+              }
+              75% {
+                border-top-color: #9b59b6;
+                border-bottom-color: #9b59b6;
+              }
+              100%{
+                transform: rotate(720deg) scale(1);
+                border-top-color: #1abc9c;
+                border-bottom-color: #1abc9c;
+              }
+            }
+            
+            
+
+</style>
+<div class="container-fluid">
+    <div style="margin-top:70px;"></div>
+    <h3 class="text-center">Booking Confirmation</h3>
+    <div class="client-body" id="clientBody">
+        <form>
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <select class="form-control" id="clients_dropdown">
+                        <option>Display data per client</option>
+                        <% clientsData.forEach(function(clients){ %>
+                           <option value="<%=clients._id%>"><%=clients.full_name%></option>
+                        <% }) %>
+                    </select>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-primary newFormBtn" id="newFormBtn" data-toggle="modal" data-target="#newFormModal">New Form</button>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group" style="float:right;">
+                    <button type="button" class="btn btn-warning newCargo" id="newCargo" onclick="location.reload()"><i class="fas fa-sync-alt"></i> Reload Page Data</button>
+                  </div>
+              </div>
+            </div>
+        </form>
+            <table class="table table-striped">
+                <thead class="table-success">
+                  <tr>
+                    <th>Date Added</th>
+                    <th>Clients Name</th>
+                    <th style="background-color:#00897b  ;color:#fff;">Vessel Name</th>
+                    <th>Booking Number</th>
+                    <th>Voyage Number</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="table_body">
+                <% foundAllData.forEach(function(content){ %>
+                  <tr id="rowID">
+                    <td><%=(moment.parseZone(content.createdAt).format('l') === moment.parseZone(new Date()).format('l') ? 'Today': moment(content.createdAt).format("ll"))%></td>
+                    <td><%=content.Client[0].full_name%></td>
+                    <td><%=content.vessel_name%></td>
+                    <td><%=content.booking_number%></td>
+                    <td><%=content.voyage_number%></td>
+                    <td>
+                        <a class="btn btn-outline-success btn-sm " href="/bc/<%=content._id%>/email/<%=content.Client[0]._id%>"><i class="fas fa-envelope-open"></i> Email</a>
+                        <a class="btn btn-outline-info btn-sm openEditModal" href="/bc/<%=content._id%>/editRoute"><i class="far fa-edit"></i> Edit</a>
+                        <button class="btn btn-outline-danger btn-sm deleteMessage1" id="<%=content._id%>" data-toggle="modal" data-target=".deleteMessageModal1"><i class="far fa-trash-alt"></i> Delete</button>
+                    </td>
+                  </tr>
+                 <% }) %>
+                </tbody>
+              </table>
+    </div>
+</div>
+
+
+<!--Delete Client-->
+<div class="modal fade deleteMessageModal1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+         <div style="padding:10px;text-align:center;">
+           <p>Delete this data ?</p>
+           <span id="client_id"></span>
+           <button class="btn btn-info" data-dismiss="modal">Cancel</button>
+           <button class="btn btn-danger delete1" id="">Delete</button>
+         </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">New Booking Confirmation</h5>
+        <p class="poa_nra_id_" id=""></p>
+        <button type="button" class="close" onclick="location.reload()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div class="section1" style="display:block;">
+             <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Client</label>
+                         <select class="form-control" id="clientdropdown" name="clientdropdown">
+                             <option>Select a Client</option>
+                         </select>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Consignee</label>
+                         <select class="form-control" id="consigneedropdown" name="consigneedropdown">
+                             <option>Select a Consignee</option>
+                         </select>
+                     </div>
+                 </div>
+             </div>
+            
+            <button class="btn btn-dark next_22" style="float:right;"><i class="fas fa-arrow-right"></i> Next</button>
+         </div>
+         <div class="section2" style="display:none;">
+             <div class="s1">
+                 <div class="row">
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Vessel Name</label>
+                             <input class="form-control" placeholder="Vessel Name" name="vessel_name" id="vessel_name">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Voyage Number</label>
+                             <input class="form-control" placeholder="Voyage Number" name="voyage_number" id="voyage_number">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Booking Number</label>
+                             <input class="form-control" placeholder="Booking Number" name="booking_number" id="booking_number">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Equipment Size</label>
+                             <input class="form-control" placeholder="Equipment Size" name="equipment_size" id="equipment_size">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Total No. of Containers</label>
+                             <input class="form-control" placeholder="Total No. of Container" name="total_number_of_container" id="total_number_of_container">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Loading Terminal</label>
+                             <input class="form-control" placeholder="Loading Terminal" name="loading_terminal" id="loading_terminal">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Carrier</label>
+                             <input class="form-control" placeholder="Carrier" name="carrier" id="carrier">
+                         </div>
+                     </div>
+                     <div class="col-md-8">
+                         <div class="form-group">
+                             <label>Commodity Description</label>
+                             <textarea class="form-control" style="resize:none;" name="commodity_des" id="commodity_des"></textarea>
+                         </div>
+                     </div>
+            
+           </div>
+           <hr>
+            <button class="btn btn-dark next_2" id="" style="float:right;"><i class="fas fa-arrow-right"></i> Next</button> 
+            <button class="btn btn-warning back_2" id="" style="float:right;"><i class="fas fa-arrow-left"></i> Back</button>
+           </div>
+          </div>
+         <div class="section3" style="display:none;">
+                 <div class="row">
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Cut off Date</label>
+                             <input class="form-control" type="date" name="cut_off_date" id="cut_off_date">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Sail Date</label>
+                             <input class="form-control" type="date" name="sail_date" id="sail_date">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Arrival Date</label>
+                             <input class="form-control" type="date" name="arrival_date" id="arrival_date">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Type of Move</label>
+                             <input class="form-control" placeholder="Return Depot" name="return_depot" id="return_depot">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Pickup Terminal</label>
+                             <input class="form-control" placeholder="Pickup Terminal" name="pickup_terminal" id="pickup_terminal">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Place of Receipt</label>
+                             <input class="form-control" placeholder="Place of Receipt" name="place_of_recript" id="place_of_recript">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Port of Loading</label>
+                             <input class="form-control" placeholder="Port of Loading" name="port_of_loading" id="port_of_loading">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Port of Discharge</label>
+                             <input class="form-control" placeholder="Port of Discharge" name="port_of_discharge" id="port_of_discharge">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Place of Delivery</label>
+                             <input class="form-control" placeholder="Place of Delivery" name="place_of_delivery" id="place_of_delivery">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Rate</label>
+                             <input class="form-control" placeholder="Rate" name="rate" id="rate">
+                         </div>
+                     </div>
+                     <div class="col-md-8">
+                         <div class="form-group">
+                             <label>Notes</label>
+                             <textarea class="form-control" style="resize:none;" name="notes" id="notes"></textarea>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+      </div>
+      <div class="modal-footer" style="display:none;">
+        <button class="btn btn-warning back_3" id="" style="float:right;"><i class="fas fa-arrow-left"></i> Back</button>
+        <button type="button" class="btn btn-primary createForm">Create Form</button>
+        <button type="button" class="btn btn-primary createFormAndEmail">Create Form and Email</button>
+        <button type="button" class="btn btn-secondary" onclick="location.reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="loader"></div>
+<div class="nodata" style="text-align:center;font-size:40px;display:none;">
+  <p>
+    <i class="fas fa-people-carry"></i><br>
+    <span class="nodata_text">No Cargo Found</span>
+  </p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="/js/booking_confirm.js"></script>

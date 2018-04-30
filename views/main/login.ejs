@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/login.css">
+    </head>
+    <body>
+
+         <div id="login-container">
+                 <h5>Oldsailor Ocean Shipping </h5>
+                 <hr>
+                 <h5>Log In</h5>
+                 <span>username: test@gmail.com</span><br>
+                 <span>password: 123456</span>
+                 <form action="/login" method="POST">
+                     <% if( error && error.length > 0 ){ %>
+                          <div class="error" id="error">
+                             <p class="text-center" style="padding-top:10px;"><%= error%></p>
+                           </div>
+                      <% } %>
+                     <div class="row">
+                         <div class="col-md-12">
+                             <div class="form-gorup">
+                                 <input type="email" class="form-control" placeholder="Username" required name="email"><br>
+                             </div>
+                         </div>
+                         <div class="col-md-12">
+                             <div class="form-gorup">
+                                 <input  type="password" class="form-control" placeholder="Password" required name="password"><br>
+                             </div>
+                         </div>
+                         <div class="col-md-12">
+                                 <div class="form-gorup">
+                                   <input  type="submit" class="btn btn-primary  form-control" value="Log in">
+                                 </div>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+        
+         <ul class="slideshow">
+                 <li></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+         </ul>
+        
+        
+        
+                <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </body>
+</html>

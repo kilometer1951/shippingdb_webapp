@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Cargo</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     <!--<link rel="stylesheet" href="/css/newcargo.css">-->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-color:#fafafa ;
+        }
+        .cargoSection {
+            width:70%;
+            margin:0 auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background-color: #fff;
+            border-radius:5px;
+            margin-bottom:20px;
+            padding:20px;
+        }
+           .cargoDataFields:nth-of-type(odd){
+              background-color: #e8f5e9 ;
+            }
+            
+            .cargoDataFields:nth-of-type(even){
+              background-color: #bbdefb ;
+            }
+       
+                  
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+       
+    </style>
+</head>
+<body>
+   <div class="container-fluid"><br>
+      <div class="cargoSection">
+          <h3 class="text-center" style="padding:20px;color:#3F729B;">Editing POA / NRA Form For <%=foundData.Client[0].full_name%> </h3>
+          <form action="/poa_nra/<%=foundData._id%>/editFormData" method="POST">
+              <div class="section2">
+                 <div class="s1">
+                     <div class="row">
+                         <div class="col-md-12">
+                             <div class="form-group">
+                                 <label>Port of Destination</label>
+                                 <input class="form-control" placeholder="Port of Destination" name="portdestination" id="portdestination" value="<%=foundData.portdestination%>">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Carrier</label>
+                                 <input class="form-control" placeholder="Carrier" name="carrier" id="carrier" value="<%=foundData.carrier%>">
+                             </div>
+                         </div>
+                         <div class="col-md-6" style="margin-top:3px;font-size:20px;">
+                             <div class="form-group">
+                                 <label>Insurance</label><br>
+                                 <label class="radio-inline " style="margin-right:30px;">
+                                   <input type="radio" name="insurance" id="yes" Value="Yes"  <%= foundData.insurance === "Yes" ? "checked" : "" %> > Yes
+                                 </label>
+                                 <label class="radio-inline">
+                                    <input type="radio" name="insurance" id="no" value="No" <%= foundData.insurance === "No" ? "checked" : "" %> > No
+                                 </label>
+                             </div>
+                         </div>
+                
+                 <hr>
+                 <style>
+                     .radio-sec {
+                         margin-right:30px;
+                     }
+                 </style>
+                 <div class="col-md-12" style="font-size:20px;">
+                     <div class="form-group">
+                         <label>Type of Shipment</label><br>
+                         <label class="radio-inline radio-sec">
+                           <input type="radio" name="typeofshipment" id="roro" Value="RORO" <%= foundData.typeofshipment === "RORO" ? "checked" : "" %>> RORO
+                         </label>
+                         <label class="radio-inline radio-sec">
+                            <input type="radio" name="typeofshipment" id="container" value="Container" <%= foundData.typeofshipment === "Container" ? "checked" : "" %>> Container
+                         </label>
+                         <label class="radio-inline radio-sec">
+                            <input type="radio" name="typeofshipment" id="consolidation" value="Consolidation" <%= foundData.typeofshipment === "Consolidation" ? "checked" : "" %>> Consolidation
+                         </label>
+                     </div>
+                </div>
+                <div class="col-md-12" style="font-size:20px;">
+                     <div class="form-group">
+                         <label>Type of Payment</label><br>
+                         <label class="radio-inline radio-sec">
+                           <input type="radio" name="typeofpayment" id="cash" Value="Cash" <%= foundData.typeofpayment === "Cash" ? "checked" : "" %>> Cash
+                         </label>
+                         <label class="radio-inline radio-sec">
+                            <input type="radio" name="typeofpayment" id="bankcheck" value="Bank Check" <%= foundData.typeofpayment === "Bank Check" ? "checked" : "" %>> Bank Check
+                         </label>
+                         <label class="radio-inline radio-sec">
+                            <input type="radio" name="typeofpayment" id="bankwire" value="Bank Wire" <%= foundData.typeofpayment === "Bank Wire" ? "checked" : "" %>> Bank Wire
+                         </label>
+                         <label class="radio-inline radio-sec">
+                            <input type="radio" name="typeofpayment" id="bankdeposit" value="Bank Deposit" <%= foundData.typeofpayment === "Bank Deposit" ? "checked" : "" %>> Bank Deposit
+                         </label>
+                     </div>
+                </div>
+                <hr>
+                <div class="col-md-4">
+                     <div class="form-group">
+                         <label>Effective</label>
+                         <input class="form-control" placeholder="Effective" type="date" name="effective_date" id="effective_date" value="<%=moment(foundData.effective_date).format("YYYY-MM-DD")%>">
+                     </div>
+                 </div>
+                 <div class="col-md-4">
+                     <div class="form-group">
+                         <label>Expiration</label>
+                         <input class="form-control" placeholder="Expiration" type="date" name="expiration" id="expiration" value="<%=moment(foundData.expiration).format("YYYY-MM-DD")%>">
+                     </div>
+                 </div>
+                 <div class="col-md-4">
+                     <div class="form-group">
+                         <label>Carrier Rep</label>
+                         <input class="form-control" placeholder="Carrier Rep" name="carrier_rep" id="carrier_rep" value="<%=foundData.carrier_rep%>">
+                     </div>
+                 </div>
+               </div>
+               <hr>
+              
+               </div>
+              </div>
+             <div class="section3" >
+                 <div class="s1">
+                     <div class="row">
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Bill of Lading Origins(s)</label>
+                                 <input class="form-control" name="bill_of_lading_oring" id="bill_of_lading_oring" value="<%=foundData.bill_of_lading_oring%>">
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Ocean Port(s) of Loading</label>
+                                 <input class="form-control" name="ocean_port_of_loading" id="ocean_port_of_loading" value="<%=foundData.ocean_port_of_loading%>">
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Bill of Lading Destination</label>
+                                 <input class="form-control" name="bill_of_lading_destination" id="bill_of_lading_destination" value="<%=foundData.bill_of_lading_destination%>">
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Ocean Port(s) of Discharge</label>
+                                 <input class="form-control" name="port_of_discharge" id="port_of_discharge" value="<%=foundData.port_of_discharge%>">
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Rate</label>
+                                 <input class="form-control" name="rate" id="rate" value="<%=foundData.rate%>">
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Rate Basis</label>
+                                 <input class="form-control" name="rate_basis" id="rate_basis" value="<%=foundData.rate_basis%>">
+                             </div>
+                         </div>
+                     </div>
+                     <hr>
+                     <div class="row">
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Cargo Quantity</label>
+                                 <input class="form-control" name="cargo_qantity" id="cargo_qantity" value="<%=foundData.cargo_qantity%>">
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Minimum</label>
+                                 <input class="form-control" name="minimum" id="minimum" value="<%=foundData.minimum%>">
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Maximum</label>
+                                 <input class="form-control" name="maximum" id="maximum" value="<%=foundData.maximum%>">
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label>Origin Service</label>
+                                 <input class="form-control" name="origin_service"  id="origin_service" value="<%=foundData.origin_service%>">
+                             </div>
+                         </div>
+                         <div class="col-md-8">
+                             <div class="form-group">
+                                 <label>Destination Service</label>
+                                 <input class="form-control" name="destination_service" id="destination_service" value="<%=foundData.destination_service%>">
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Special Conditions</label>
+                                 <textarea class="form-control" style="resize:none;" name="special_conditions" id="special_conditions"><%=foundData.special_conditions%></textarea>
+                             </div>
+                         </div>
+                         <div class="col-md-6">
+                             <div class="form-group">
+                                 <label>Commodity</label>
+                                 <textarea class="form-control" style="resize:none;" name="commodity" id="commodity"><%=foundData.commodity%></textarea>
+                             </div>
+                         </div>
+                        
+                     </div>
+                 </div>
+               
+                
+             </div>
+            <button type="submit" class="btn btn-primary">Update and Return</button>
+            <a class="btn btn-danger" href="/powerOfAttroney_nra">Return back</a>
+          </form>
+      </div>
+    </div>
+    
+      
+        
+<div id="snackbar">Record Updated</div>
+        
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+<!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/js/cargo.js"></script>
+
+</body>
+</html>

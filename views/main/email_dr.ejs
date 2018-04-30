@@ -1,0 +1,540 @@
+<html>
+    <head>
+        <title><%=stringText(ClientData.full_name)%></title>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+         <script src="/js/html2pdf.js"></script>
+   <style>
+   body {
+       line-height:1em;
+       font-size:24px;
+   }
+       .h_1 {
+           width:100%;
+           float:left;
+       }
+      
+       .h_2 {
+           padding:10px;
+           width:100%;
+           border:1px solid #000;
+           float:right;
+       }
+     table, th,  td {
+    border: 1px solid black;
+    padding:5px;
+    border-collapse: collapse;
+
+}
+th, td {
+        text-align:left;
+        
+}
+
+   </style>
+   <style media="print">
+ 
+        #d {
+          display:none;
+        }
+</style>
+    </head>
+    <body><br>
+<div id="element-to-print" class="element-to-print">
+  <div class="container">
+  
+    <div style="display:inline-block;">
+       <span style="font-size:17px;"><b><%=stringText("OLDSAILORS OCEAN SHIPPING LLC")%></b> </span><br>
+      
+        <span style="font-size:17px;"><b>FMC-OTI No: <%=stringText("026435N")%></b></span>
+    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div style="display:inline-block;">
+        <span style="font-size:20px"><b>DOCK&nbsp;RECEIPT</b></span><br>
+        <span style="font-size:12px;">Date: <%=moment(Dock_R.createdAt).format("l")%></span>
+        
+    </div><br>
+     <div class="row">
+         <div style="border-top:1px solid #000;width:100%;">
+            <div class="row">
+                <div class="col-md-6" style="border-right:1px solid #000;">
+                    <!--Shipper -->
+                     <div>
+                         <b style="font-size:16px;"><%=stringText("SHIPPER EXPORTER")%></b><br>
+                         <% if(Dock_R.cleint_is_agent !== null ) { %>
+                           <span style="font-size:16px;"><%=stringText(Dock_R.cleint_is_agent === "Yes" ? ClientData.full_name +"\nAS AGENT FOR OLDSAILORS OCEAN SHIPPING \n" : "OLDSAILORS OCEAN SHIPPING AS AGENT FOR \n"+ClientData.full_name)%></span><br>
+                         <% } else { %>
+                           <span style="font-size:18px;"><%=stringText(ClientData.full_name)%>,</span><br>
+                         <% } %>
+                        <span style="font-size:18px;"><%=stringText(ClientData.address)%></span><br>
+                        <span style="font-size:18px;"><%=stringText(ClientData.City.cityname)%>,&nbsp;&nbsp;</span>
+                        <span style="font-size:18px;"><%=stringText(ClientData.State.statename)%>,</span><br>
+                        <span style="font-size:18px;"><%=stringText(ClientData.zipcode)%>, USA,</span>&nbsp;
+                        <span style="font-size:18px;">Tel:<%=ClientData.pnum%></span>
+                     </div>
+                     <!-- CONSIGNEE  -->
+                     <div  style="border-top:1px solid #000;">
+                        <b style="font-size:16px;"><%=stringText("CONSIGNEE")%></b><br>
+                        <span style="font-size:18px;"><%=stringText(Consignee.full_name)%></span><br>
+                        <span style="font-size:18px;"><%=stringText(Consignee.address)%>,</span><br>
+                        <span style="font-size:18px;"><%=stringText(Consignee.city)%>,&nbsp;<%=stringText(Consignee.state)%>,</span><br>
+                        <span style="font-size:18px;"><%=stringText(Consignee.Country.countryname)%>,&nbsp;Tel: <%=stringText(Consignee.pnum)%></span>
+
+                     </div>
+                     <div  style="border-top:1px solid #000;">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div style="border-right:1px solid #000;">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span style="font-size:13px;"><b>VESSEL</b></span><br>
+                                            <span style="font-size:17px;"><%=stringText(BookingConfirmation.vessel_name !== "" ? BookingConfirmation.vessel_name : "" )%></span>
+                                        </div>
+                                         <div class="col-md-6">
+                                            <span style="font-size:13px;"><b>VOYAGE</b></span><br>
+                                            <span style="font-size:17px;"><%=stringText(BookingConfirmation.voyage_number !== "" ? BookingConfirmation.voyage_number : "" )%></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <span style="font-size:13px;"><b><%=stringText("PORT OF LOADING")%></b></span><br>
+                                <span style="font-size:17px;"><%=stringText(BookingConfirmation.port_of_loading !== "" ? BookingConfirmation.port_of_loading : "" )%></span>
+                            </div>
+                        </div>
+                     </div>
+                     <div  style="border-top:1px solid #000;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-7" style="border-right:1px solid #000;">
+                                            <span style="font-size:13px;"><b><%=stringText("PORT OF DISCHARGE")%></b></span><br>
+                                            <span style="font-size:17px;"><%=stringText(BookingConfirmation.port_of_discharge !== "" ? BookingConfirmation.port_of_discharge : "" )%></span>
+                                     </div>
+                                      <div class="col-md-5">
+                                        <span style="font-size:13px;"><b><%=stringText("PRE-CARRIAGE BY")%></b></span><br>
+                                        <span style="font-size:17px;"><%=BookingConfirmation.carrier%></span>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                     </div>
+                     <div  style="border-top:1px solid #000;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6" style="border-right:1px solid #000;">
+                                            <span style="font-size:13px;"><b><%=stringText("LOADING TERMINAL")%></b></span><br>
+                                            <span style="font-size:17px;"><%=stringText(BookingConfirmation.loading_terminal !== "" ? BookingConfirmation.loading_terminal : "" )%></span>
+                                     </div>
+                                      <div class="col-md-6">
+                                        <span style="font-size:13px;"><b><%=stringText("ORIGINAL (S) TO BE RELEASED")%></b></span><br>
+                                        <span style="font-size:17px;"><%=stringText(Dock_R.originals_tobe_released)%></span>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                     </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div  style="border-bottom:1px solid #000;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6" style="border-right:1px solid #000;">
+                                            <span style="font-size:13px;"><b><%=stringText("BOOKING #")%></b></span><br>
+                                            <span style="font-size:17px;"><%=stringText(BookingConfirmation.booking_number !== "" ? BookingConfirmation.booking_number : "" )%></span>
+                                     </div>
+                                      <div class="col-md-6">
+                                        <span style="font-size:13px;"><b><%=stringText("FILE NUMBER")%></b></span><br>
+                                        <span style="font-size:17px;"><%=string_ID(Dock_R._id)%></span>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                     </div>
+                     
+                     
+                     <div  style="border-bottom:1px solid #000;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <span style="font-size:13px;"><b><%=stringText("EXPORTER REFERENCES")%></b></span><br>
+                                            <span style="font-size:17px;"><%=string_ID(Dock_R._id)%></span>
+                                     </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                     </div>
+                     
+                     
+                     
+                     <div  style="border-bottom:1px solid #000;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-8" style="border-right:1px solid #000;">
+                                            <span style="font-size:13px;"><b><%=stringText("FORWARDING AGENT REFERENCES")%></b></span><br>
+                                            <span style="font-size:17px;"><%=stringText(Dock_R.fowarding_agent_ref)%></span>
+                                     </div>
+                                      <div class="col-md-4">
+                                        <span style="font-size:13px;"><b><%=stringText("PICK UP TERMINAL")%></b></span><br>
+                                        <span style="font-size:17px;"><%=stringText(BookingConfirmation.pickup_terminal)%></span>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                     </div>
+
+                     <div  style="border-bottom:1px solid #000;">
+                        <div class="row">
+                            <div class="col-md-8" >
+                                <div style="border-right:1px solid #000;">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span style="font-size:13px;"><b>FOR TRANSHIPMENT TO</b></span><br>
+                                            <span style="font-size:17px;"><%=Dock_R.for_transhipment_to%></span>
+                                        </div>
+                                         <div class="col-md-6" style="border-left:1px solid #000;">
+                                            <span style="font-size:13px;"><b><%=stringText("PLACE OF RECEIPT")%></b></span><br>
+                                            <span style="font-size:17px;"><%=stringText(BookingConfirmation.place_of_recript )%></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="padding:0">
+                                <span style="font-size:13px;"><b><%=stringText("TYPE OF MOVE")%></b></span><br>
+                                <span style="font-size:17px;"><%=stringText(BookingConfirmation.return_depot )%></span>
+                            </div>
+                        </div>
+                     </div>
+                     <div style="font-size:14px;">
+                          <b ><%=stringText("NOTIFY PARTY / INTERMEDIATE CONSIGNEE ")%></b><br> 
+                        <span><%=Dock_R.n_name%></span><br>
+                        <span><%=stringText(Dock_R.n_address)%><br>
+                        <%=Dock_R.n_country%></span><br>
+                        <span><%=Dock_R.n_pnum !== "" ? "Tel: "+Dock_R.n_pnum : "" %></span>
+                     </div>
+                     <div style="border-top:1px solid #000;font-size:13px;">
+                          <b>POINT AND COUNTRY OF ORIGIN</b><br> 
+                        <span><%=Dock_R.point_and_contry_of_origin%></span><br>
+                     </div>
+                </div>
+            </div>
+         </div>
+     </div>
+    
+                 <div>
+                     <div class="row">
+                       <div class="col-md-2" style="border:1px solid #000;">
+                           
+                       <span style="font-size:13px;font-weight:bold;">MARKS&nbsp;AND&nbsp;NUMBERS</span>
+
+                     </div>
+                     <div class="col-md-6" style="border:1px solid #000;">
+                           
+                               <span style="font-size:13px;font-weight:bold;padding:7px;">DESCRIPTION&nbsp;OF&nbsp;PACKAGES&nbsp;AND&nbsp;GOODS&nbsp;IN&nbsp;SCHEDULE</span>
+
+                     </div>
+                     <div class="col-md-2" style="border:1px solid #000;">
+                           
+                               <span style="font-size:13px;font-weight:bold;padding:7px;">WEIGHT</span>
+
+                     </div>
+                     <div class="col-md-2" style="border:1px solid #000;">
+                           
+                               <span style="font-size:13px;font-weight:bold;">MEASUREMENT</span>
+
+                     </div>
+                     </div>
+                 </div>
+                  <div class="row" style="font-size:18px;">
+                       <div class="col-md-2" style="border:1px solid #000;">
+                           <div class="row">
+                               <div style="padding:7px;">
+                                <b> CONTAINER&nbsp;#</b><br>
+                               <span style="font-size:18px;"><%=Dock_R.container_num%></span><br><br>
+                                <b>SEAL&nbsp;#:</b>
+                               <%=Dock_R.seal_num%><br><br>
+                               <b>CUT&nbsp;OFF&nbsp;DATE</b><br>
+                               <%=moment(BookingConfirmation.cut_off_date).format("l")%><br><br>
+                               <b>SAILING&nbsp;DATE</b><br>
+                                <%=moment(BookingConfirmation.sail_date).format("l")%><br><br>
+                               <b>ARRIVAL&nbsp;DATE</b><br>
+                               <%=moment(BookingConfirmation.arrival_date).format("l")%><br>
+                               </div>
+                           </div>
+                       </div> 
+                        <div class="col-md-6" style="border:1px solid #000;">
+                           <div class="row" >
+                              <div style="padding:7px;">
+                                   <span style="font-size:14px;"><%=stringText(BookingConfirmation.equipment_size)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AES#:&nbsp;<%=Dock_R.aes_num%></span><br>
+                                    
+                                     <div  style="height:540px;font-size:20px;margin-top:5px;">
+                                         <% Cargos.Cars.forEach(function(carsdata){ %>
+                                           <span>
+                                              <span><%=stringText(carsdata.cardetails)%></span><br>
+                                              <span>VIN:<%=carsdata.vin.toUpperCase()%></span><br><br>
+                                           </span>
+                                        <% }) %>
+                                        <div style="width:400px;">
+                                         <span style="font-size:14px;"><b><%=Cargos.personal_effect.toUpperCase()%></b></span>
+                                       </div>
+                                     </div>
+                                     
+                                   <span style="font-size:19px;"><%=Dock_R.demurrage%></span><br>
+                                   <div style="font-size:16px;margin-left:350px;">
+                                       
+                                       <span ><b> <%=stringText("Total Weight")%></b></span>
+                                   </div>
+                                   <div style="float:left;font-size:13px;">
+                                       <span><b><%=stringText("SHIPPER ON THIS DOCK RECEIPT CONFIRMS THAT, GAS TANK")%></b></span><br>
+                                       <span><b><%=stringText(" HAS BEEN DRAINED OFF FUEL, BATTERIES DISCONNECTED,")%></b></span><br>
+                                       <span><b><%=stringText("VEHICLES HAVE BEEN BLOCKED AND BRACED, CONTAINER LOADED ")%></b></span>
+                                       <span><b><%=stringText("IN ACCORDANCE TO GENERAL INTO IMDG CODE PARAGRAPH 12.3.7 & 17.7.7")%></b></span><br>
+                                   </div>
+                              </div>
+                           </div>
+                       </div> 
+                        <div class="col-md-2" style="border:1px solid #000;">
+                           <div class="row">
+                               <div style="padding:7px;">
+                                    
+                                   <div style="margin-top:5px;height:564px; font-size:20px;">
+                                        <% Cargos.Cars.forEach(function(carsdata){ %>
+                                           <span style="text-align:left;">
+                                             <br><span><%=carsdata.weight !== undefined ? carsdata.weight+"kg" : "" %></span>
+                                           </span><br><br>
+                                     <% }) %>
+                                    
+                                   <div style="margin-top:16px;">
+                                        <span><%=Cargos.personal_effect_weight !== undefined ? Cargos.personal_effect_weight+"kg" : "" %></span>
+                                   </div>
+                                   </div>
+                                    <div style="font-size:16px;"><br>
+                                       <span ><b> <%= parseFloat(Cargos.total_weight).toFixed(2)%>kg</b></span>
+                                   </div>
+                                   
+                               </div>
+                           </div>
+                       </div> 
+                        <div class="col-md-2" style="border:1px solid #000;">
+                           <div class="row">
+                               <div style="padding:7px;">
+                                   <div style="margin-top:5px;">
+                                        <% Cargos.Cars.forEach(function(carsdata){ %>
+                                           <span style="text-align:left;">
+                                             <br> <span><%=carsdata.measurement%></span>
+                                           </span><br><br>
+                                     <% }) %><br>
+                                   </div>
+                                <span><%=Cargos.personal_effect_m === undefined || Cargos.personal_effect_m === "0" ? "" : Cargos.personal_effect_m %></span>
+
+                               </div>
+                           </div>
+                       </div> 
+                  </div>
+                  
+  <div class="row" >
+     <div class="col-md-5" style="font-size:15px;">
+          <span>
+             <%=stringText("LIGHTER TRUCK")%> _________________
+          </span><br><br>
+          <span>
+             <%=stringText("ARRIVED")%>&nbsp;DATE____________&nbsp;&nbsp;TIME_______
+          </span><br><br>
+          <span>
+             <%=stringText("UNLOADED")%>&nbsp;DATE_______&nbsp;&nbsp;TIME_____
+          </span><br><br>
+          <span>
+             <%=stringText("CHECKED BY:")%>&nbsp;___________
+          </span>
+     </div>
+     <div class="col-md-7" style="font-size:13px;border-left:1px solid #000;">
+          <span ><b>
+             <%=stringText(" RECEIVED THE ABOVE DESCRIBED GOODS OR PACKAGES SUBJECTED TO ALL ")%>
+             <%=stringText(" THE TERMS OF THE UNDERSIGNED'S  REGULAR FORMS OF DOCK RECEIPT ")%>
+             <%=stringText(" AND BILL OF LADING WHICH SHALL CONSTITUTE THE CONTRACT UNDER ")%>
+             <%=stringText(" WHICH THE GOODS ARE RECEIVED.COPIES OF WHICH ARE AVAILABLE ")%>
+             <%=stringText(" FROM THE CARRIER ON REQUEST AND MAY BE INSPECTED AT ANY OF ITS OFFICES. ")%>
+             </b>
+          </span><br>
+           <div class="row">
+               <div class="col-md-6">
+                   <b><%=stringText("FOR THE MASTER")%></b>
+                   <hr style="background-color:#000;">
+               </div>
+                <div class="col-md-6">
+                   <b><%=stringText("RECEIVING CLERK")%></b>
+                     <hr style="background-color:#000;">
+               </div>
+           </div>
+     </div>
+  </div>
+</div>
+</div>
+
+
+<div class="container" id="d"><br><br>
+<input type="button" id="create_pdf" value="Generate Document" class="btn btn-info" style="float:left;margin-right:10px;">  
+
+
+<form  id="send_emailForm" style="display:none;">
+    <input value='<%=ClientData.full_name%>' type="hidden" id="filename">
+
+  <a href="mailto:<%=ClientData.email%>" class="btn btn-success"><i class="fas fa-envelope-open"></i> Send Email</a>
+</form>
+
+  <a href="/dock_r" class="btn btn-warning"> Cancel</a>
+
+<br>
+<br>
+<br>
+
+</div>
+ 
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+        <!-- jQuery library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+$('#create_pdf').on('click', function () {  
+//   var fileName =  $("#filename").val();
+          
+//           var element = document.getElementById('element-to-print');
+//           html2pdf(element, {
+//             margin:       0.1,
+//             filename:     fileName+'_NRA_BC-ALL_3.pdf',
+//             image:        { type: 'jpeg', quality: 1 },
+//             html2canvas:  { dpi: 202, letterRendering: true },
+//             jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+//           });
+           window.print();
+           $("#send_emailForm").css("display", "block");
+});     
+// (function () {  
+  
+    
+    
+//          var  
+//          form = $('.element-to-print'),  
+//          cache_width = form.width(), 
+//          name = $('#filename').val(), 
+//          a4 = [595.28, 841.89]; // for a4 size paper width and height  
+  
+//         $('#create_pdf').on('click', function () {  
+//             $('body').scrollTop(0);  
+//             createPDF();  
+//             $("#send_emailForm").css("display", "block")
+//         });  
+//         //create pdf  
+//         function createPDF() {  
+//             getCanvas().then(function (canvas) {  
+//                 var  
+//                  img = canvas.toDataURL("image/png"),  
+//                  doc = new jsPDF({  
+//                      unit: 'px',  
+//                      format: 'a4'  
+//                  });  
+//                 doc.addImage(img, 'JPEG', 20, 20);  
+//                 doc.save( name + '.pdf');
+//                 //console.log(path);  
+//                 form.width(cache_width);  
+//             });  
+//         }  
+  
+//         // create canvas object  
+//         function getCanvas() {  
+//             form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');  
+//             return html2canvas(form, {  
+//                 imageTimeout: 2000,  
+//                 removeContainer: true  
+//             });  
+//         }     
+        
+// }());    
+ 
+ 
+//  (function () {  
+  
+//      $('#create_pdf').on('click', function () {  
+           
+//             createPDF();  
+//              $('body').scrollTop(0);  
+//         }); 
+// function createPDF() {
+//     var canvasToImage = function(canvas){
+//         var img = new Image();
+//         var dataURL = canvas.toDataURL('image/png');
+//         img.src = dataURL;
+//         return img;
+//     };
+//     var canvasShiftImage = function(oldCanvas,shiftAmt){
+//         shiftAmt = parseInt(shiftAmt) || 0;
+//         if(!shiftAmt){ return oldCanvas; }
+        
+//         var newCanvas = document.createElement('canvas');
+//         newCanvas.height = oldCanvas.height - shiftAmt;
+//         newCanvas.width = oldCanvas.width;
+//         var ctx = newCanvas.getContext('2d');
+        
+//         var img = canvasToImage(oldCanvas);
+//         ctx.drawImage(img,0, shiftAmt, img.width, img.height, 0, 0, img.width, img.height);
+        
+//         return newCanvas;
+//     };
+    
+    
+//     var canvasToImageSuccess = function(canvas){
+//         var pdf = new jsPDF('l','px'),
+//             pdfInternals = pdf.internal,
+//             pdfPageSize = pdfInternals.pageSize,
+//             pdfScaleFactor = pdfInternals.scaleFactor,
+//             pdfPageWidth = pdfPageSize.width,
+//             pdfPageHeight = pdfPageSize.height,
+//             totalPdfHeight = 0,
+//             htmlPageHeight = canvas.height,
+//             htmlScaleFactor = canvas.width / (pdfPageWidth * pdfScaleFactor),
+//             safetyNet = 0;
+        
+//         while(totalPdfHeight < htmlPageHeight && safetyNet < 15){
+//             var newCanvas = canvasShiftImage(canvas, totalPdfHeight);
+//             pdf.addImage(newCanvas, 'png', 0, 0, pdfPageWidth, 0, null, 'NONE');
+            
+//             totalPdfHeight += (pdfPageHeight * pdfScaleFactor * htmlScaleFactor);
+            
+//             if(totalPdfHeight < htmlPageHeight){
+//                 pdf.addPage();
+//             }
+//             safetyNet++;
+//         }
+//       var  name = $('#filename').val()
+        
+//         pdf.save(name+'.pdf');
+//     };
+    
+//     html2canvas($('.element-to-print'), {
+//         onrendered: function(canvas){
+//             canvasToImageSuccess(canvas);
+//         }
+//     });     
+// } 
+        
+// }());   
+</script>
+</body>
+</html>

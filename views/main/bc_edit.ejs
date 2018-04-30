@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Cargo</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     <!--<link rel="stylesheet" href="/css/newcargo.css">-->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-color:#fafafa ;
+        }
+        .cargoSection {
+            width:70%;
+            margin:0 auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background-color: #fff;
+            border-radius:5px;
+            margin-bottom:20px;
+            padding:20px;
+        }
+           .cargoDataFields:nth-of-type(odd){
+              background-color: #e8f5e9 ;
+            }
+            
+            .cargoDataFields:nth-of-type(even){
+              background-color: #bbdefb ;
+            }
+       
+.s1 {
+    padding:10px;
+}
+       
+    </style>
+</head>
+<body>
+   <div class="container-fluid"><br>
+      <div class="cargoSection">
+          <h3 class="text-center" style="padding:20px;color:#3F729B;">Editing Booking Confirmation For <%=foundData.Client[0].full_name%> </h3>
+          <form action="/bc/<%=foundData._id%>/edit" method="POST">
+              <div class="section2">
+                 <div class="s1">
+                     <div class="row">
+                        
+         <div class="section2" >
+             <div class="s1">
+                 <div class="row">
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Vessel Name</label>
+                             <input class="form-control"  name="vessel_name" id="vessel_name" value="<%=foundData.vessel_name%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Voyage Number</label>
+                             <input class="form-control"  name="voyage_number" id="voyage_number" value="<%=foundData.voyage_number%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Booking Number</label>
+                             <input class="form-control"  name="booking_number" id="booking_number" value="<%=foundData.booking_number%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Equipment Size</label>
+                             <input class="form-control"  name="equipment_size" id="equipment_size" value="<%=foundData.equipment_size%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Total No. of Containers</label>
+                             <input class="form-control"  name="total_number_of_container" id="total_number_of_container" value="<%=foundData.total_number_of_container%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Loading Terminal</label>
+                             <input class="form-control"  name="loading_terminal" id="loading_terminal" value="<%=foundData.loading_terminal%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Carrier</label>
+                             <input class="form-control"  name="carrier" id="carrier" value="<%=foundData.carrier%>">
+                         </div>
+                     </div>
+                     <div class="col-md-8">
+                         <div class="form-group">
+                             <label>Commodity Description</label>
+                             <textarea class="form-control" style="resize:none;" name="commodity_des" id="commodity_des"><%=foundData.commodity_des%></textarea>
+                         </div>
+                     </div>
+            
+           </div>
+           <hr>
+          
+           </div>
+          </div>
+         <div class="section3" >
+                 <div class="row">
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Cut off Date</label>
+                             <input class="form-control" type="date" name="cut_off_date" id="cut_off_date" value="<%=moment(foundData.cut_off_date).format("YYYY-MM-DD")%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Sail Date</label>
+                             <input class="form-control" type="date" name="sail_date" id="sail_date" value="<%=moment(foundData.sail_date).format("YYYY-MM-DD")%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Arrival Date</label>
+                             <input class="form-control" type="date" name="arrival_date" id="arrival_date" value="<%=moment(foundData.arrival_date).format("YYYY-MM-DD")%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Type of Move</label>
+                             <input class="form-control"  name="return_depot" id="return_depot" value="<%=foundData.return_depot%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Pickup Terminal</label>
+                             <input class="form-control"  name="pickup_terminal" id="pickup_terminal" value="<%=foundData.pickup_terminal%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Place of Receipt</label>
+                             <input class="form-control"  name="place_of_recript" id="place_of_recript" value="<%=foundData.place_of_recript%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Port of Loading</label>
+                             <input class="form-control"  name="port_of_loading" id="port_of_loading" value="<%=foundData.port_of_loading%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Port of Discharge</label>
+                             <input class="form-control"  name="port_of_discharge" id="port_of_discharge" value="<%=foundData.port_of_discharge%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Place of Delivery</label>
+                             <input class="form-control"  name="place_of_delivery" id="place_of_delivery" value="<%=foundData.place_of_delivery%>">
+                         </div>
+                     </div>
+                     <div class="col-md-4">
+                         <div class="form-group">
+                             <label>Rate</label>
+                             <input class="form-control"  name="rate" id="rate" value="<%=foundData.rate%>">
+                         </div>
+                     </div>
+                     <div class="col-md-8">
+                         <div class="form-group">
+                             <label>Notes</label>
+                             <textarea class="form-control" style="resize:none;" name="notes" id="notes"><%=foundData.notes%></textarea>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+              
+            </div>
+        </div>
+             
+            <button type="submit" class="btn btn-primary">Update and Return</button>
+            <a class="btn btn-danger" href="/bookingconfirmation">Return back</a>
+          </form>
+      </div>
+    </div>
+    
+    </div>
+    
+      
+        
+        
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+<!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/js/cargo.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<html>
+    <head>
+        <title><%=ClientData.full_name%></title>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+         <script src="/js/html2pdf.js"></script>
+   <style>
+   body {
+       font-size:18px;
+   }
+       .h_1 {
+           width:100%;
+           float:left;
+       }
+      
+       .h_2 {
+           padding:10px;
+           width:100%;
+           border:1px solid #000;
+           float:right;
+       }
+     table, th,  td {
+    border: 1px solid black;
+    padding:5px;
+    border-collapse: collapse;
+
+}
+th, td {
+        text-align:center;
+}
+   </style>
+    <style media="print">
+ 
+        #d {
+          display:none;
+        }
+</style>
+    </head>
+    <body><br>
+<div id="element-to-print">
+  <div class="container">
+    <div class="header">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="h_1">
+                 <h4 style="padding-left:5px;"><b>Booking&nbsp;Confirmation</b></h4>
+                     <table style="width:100%">
+                           <tr>
+                            <td><b>File Number</b></td>
+                            <td><%=string_ID(foundAllData_1._id)%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Date</b></td>
+                            <td><%=moment(foundAllData_1.createdAt).format("l")%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Carrier</b></td>
+                            <td><%=foundAllData_1.carrier%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Carrier Booking N.</b></td>
+                            <td><%=foundAllData_1.booking_number%></td>
+                          </tr>
+                     </table>
+                    
+              </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="h_2">
+                   <span><b>Company Name:</b> <%=stringText("OLDSAILORS OCEAN SHIPPING LLC")%> </span><br>
+                   <span><b>Company address:</b> <%=stringText("13903 CHADSWORTH TERRACE,\nLaurel, MD 20707, USA")%></span><br>
+                   <span><b>Tel:</b> <%=stringText("301-213-6961")%></span><br>
+                   <span><b>Fax:</b> <%=stringText("301-281-4034")%></span><br>
+                   <span><b>Email:</b> info@oldsailorsshippingonline.com</span><br>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+                <table style="width:100%;">
+                          <tr >
+                            <td >
+                                <h5><b>SHIPPER</b></h5>
+                                <span><%=ClientData.full_name%></span><br>
+                                <span><%=ClientData.address%>,</span>
+                                <span><%=ClientData.City.cityname%>,</span>
+                                <span><%=ClientData.State.statename%>,</span>
+                                <span><%=ClientData.zipcode%>,</span>
+                                <span>United States</span><br>
+                                <span><%=ClientData.pnum%></span><br>
+                                <span><%=ClientData.email%></span><br>
+
+                            </td>
+                            <td colspan="6">
+                                <span><b>SERVICE&nbsp;PROVIDER&nbsp;FOR<br>PRECARRIAGE</b></span><br><br>
+                                <span style="font-size:25px;font-weight:lighter;"><%=foundAllData_1.carrier%></span>
+                                
+                            </td>
+                          </tr>
+                         
+                        
+                     </table>
+                    
+                     
+   <table style="width:100%;">
+                        
+                         <tr>
+                            <td><b>Cut Off Date</b></td>
+                            <td><%=moment(foundAllData_1.cut_off_date).format("l")%></td>
+                            <td><b>Sailing/ETD</b></td>
+                            <td><%=moment(foundAllData_1.sail_date).format("l")%></td>
+                            <td><b>Arrival/ETA</b></td>
+                            <td><%=moment(foundAllData_1.arrival_date).format("l")%></td>
+                          </tr>
+                        <tr>
+                            <td><b>Pickup Terminal</b></td>
+                            <td><%=foundAllData_1.pickup_terminal%></td>
+                            <td><b>Type of Move</b></td>
+                            <td colspan="3"><%=foundAllData_1.return_depot%></td>
+                          </tr>
+                         <tr>
+                            <td><b>Place of Receipt</b></td>
+                            <td><%=foundAllData_1.place_of_recript%></td>
+                            <td><b>Port of Loading</b></td>
+                            <td colspan="3"><%=foundAllData_1.port_of_loading%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Port of Discharge</b></td>
+                            <td><%=foundAllData_1.port_of_discharge%></td>
+                            <td><b>Place of Delivery</b></td>
+                            <td colspan="3"><%=foundAllData_1.place_of_delivery%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Vessel</b></td>
+                            <td><%=foundAllData_1.vessel_name%></td>
+                            <td style="text-align:center;"><b>Voyage</b></td>
+                            <td colspan="3"><%=foundAllData_1.voyage_number%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Total N. Of Container <br> & Equiqment size</b></td>
+                            <td><%=foundAllData_1.total_number_of_container%>,<br><%=foundAllData_1.equipment_size%></td>
+                            <td><b>Commodity <br>& Description of Goods</b></td>
+                            <td colspan="3"><%=foundAllData_1.commodity_des%></td>
+                          </tr>
+                          <tr>
+                            <td><b>RATE</b></td>
+                            <td><%=foundAllData_1.rate%></td>
+                            <td><b>Notes</b></td>
+                            <td colspan="3"><%=foundAllData_1.notes%></td>
+                          </tr>
+                     </table>
+                     <span>
+                         Container Needs To Return To The Port 5 Days From Delivery,after Per Diem Charges Of $135/ Day Applies. Once The Container Is Loaded Please Provide Us With Container #, Seal #, Pieces Count & Weight
+                     </span>
+  </div>
+</div>
+
+
+
+<div class="container" id="d"><br><br>
+<input type="button" id="create_pdf" value="Generate Document" class="btn btn-info" style="float:left;margin-right:10px;">  
+
+
+<form  id="send_emailForm" style="display:none;">
+    <input value='<%=ClientData.full_name%>' type="hidden" id="filename">
+
+  <a href="mailto:<%=ClientData.email%>" class="btn btn-success"><i class="fas fa-envelope-open"></i> Send Email</a>
+</form>
+
+  <a href="/bookingconfirmation" class="btn btn-warning"> Cancel</a>
+
+<br>
+<br>
+<br>
+
+</div>
+
+
+
+<div class="container" id="d">
+  <h3 style="text-align:center;">MERGE NRA OR ALL 3 DOCUMENTS</h3>
+<hr>
+<div class="row">
+  <table class="table table-striped">
+                <thead class="table-success">
+                  <tr>
+                    <th>Date Added</th>
+                    <th style="background-color:#00897b  ;color:#fff;">Type of Shipment</th>
+                    <th>Port of Discharge</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="table_body">
+                <% foundAllData.forEach(function(content){ %>
+                  <tr id="rowID">
+                    <td><%=(moment.parseZone(content.createdAt).format('l') === moment.parseZone(new Date()).format('l') ? 'Today': moment(content.createdAt).format("ll"))%></td>
+                    <td><%=content.typeofshipment%></td>
+                    <td><%=content.port_of_discharge%></td>
+                    <td>
+                        <a class="btn btn-primary btn-sm " href="/merge_nra_booking/nra_num/<%=content._id%>/bc_num/<%=foundAllData_1._id%>/email/<%=ClientData._id%>"><i class="fas fa-envelope-open"></i> Merge and Email</a>
+                        <a class="btn btn-info btn-sm " href="/merge_nra_booking_3/nra_num/<%=content._id%>/bc_num/<%=foundAllData_1._id%>/email/<%=ClientData._id%>"><i class="fas fa-envelope-open"></i> Merge and Email All 3</a>
+                     
+                    </td>
+                  </tr>
+                 <% }) %>
+                </tbody>
+              </table>
+  
+</div>
+</div>
+
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+        <!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/js/cargo.js"></script>
+<script>
+$('#create_pdf').on('click', function () {  
+//   var fileName =  $("#filename").val();
+//           var element = document.getElementById('element-to-print');
+//           html2pdf(element, {
+//             margin:       0.1,
+//             filename:     fileName+'_BOOKING_CONFIRMATION.pdf',
+//             image:        { type: 'jpeg', quality: 1 },
+//             html2canvas:  { dpi: 192, letterRendering: true },
+//             jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+//           });
+ window.print();
+          
+           $("#send_emailForm").css("display", "block")
+});  
+        
+        
+       
+ 
+</script>
+</body>
+</html>

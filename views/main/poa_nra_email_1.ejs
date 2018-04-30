@@ -1,0 +1,366 @@
+<html>
+    <head>
+        <title><%=ClientData.full_name%></title>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+         <script src="/js/html2pdf.js"></script>
+      
+     <style media="print">
+ 
+        #d {
+          display:none;
+        }
+</style>
+   <style>
+     body {
+       font-size:17px;
+   }
+       .h_1 {
+           width:60%;
+          
+           float:left;
+           font-size:13px;
+       }
+      
+       .h_2 {
+           padding:10px;
+           width:100%;
+           
+           border:1px solid #000;
+           float:right;
+           font-size:15px;
+       }
+     table, th,  td {
+    border: 1px solid black;
+   padding:5px;
+    border-collapse: collapse;
+}
+th, td {
+    
+    text-align: left;    
+}
+   </style>
+    </head>
+    <body><br>
+<div id="element-to-print">
+  <div class="container">
+    <div class="header">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="h_1">
+                 <span style="padding-left:5px;">- FILL OUT/LEGIBLE &nbsp; &nbsp;PRINT,&nbsp; &nbsp;SAVE  &nbsp;AND &nbsp;THEN  &nbsp;EMAIL &nbsp; OR  &nbsp;PRINT/FAX</span>
+                     <table style="width:100%">
+                          <tr>
+                            <td><b>Date</b></td>
+                            <td><%=moment(foundAllData.createdAt).format("l")%></td>
+                          </tr>
+                           <tr>
+                            <td><b>Port Destination</b></td>
+                            <td><%=foundAllData.portdestination%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Carrier</b></td>
+                            <td><%=foundAllData.carrier%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Insurance</b></td>
+                            <td><%=foundAllData.insurance%></td>
+                          </tr>
+                     </table><br>
+                    
+              </div>
+            </div>
+            <div class="col-md-6" >
+                <div class="h_2">
+                   <span><b>Company Name:</b> <%=stringText("OLDSAILORS OCEAN SHIPPING LLC")%> </span><br>
+                   <span><b>Company address:</b> <%=stringText("13903 CHADSWORTH TERRACE, Laurel, MD 20707, USA")%></span><br>
+                   <span><b>Tel:</b> <%=stringText("301-213-6961")%></span><br>
+                   <span><b>Fax:</b> <%=stringText("301-281-4034")%></span><br>
+                   <span><b>Email:</b> info@oldsailorsshippingonline.com</span><br>
+                </div>
+            </div>
+        </div>
+    </div>
+     <p>
+                         <b>RESERVATION&nbsp; AND&nbsp; SHIPPING &nbsp;INSTRUCTIONS</b><br>
+                         *If you select not to apply insurance, Oldsailors ocean Shipping 
+                         will&nbsp; <b>NOT</b>&nbsp; be held responsible for any property damage or loss. To learn
+                         more about insuring your shipment, inquire in the office.
+                         
+                     </p>
+                <table style="width:100%;">
+                          <tr>
+                            <td colspan="6"><b>FROM &nbsp;THE &nbsp;U.S. (YOU THE CUSTOMER)</b></td>
+                          </tr>
+                           <tr>
+                            <td><b>SHIPPER'S&nbsp; NAME</b></td>
+                            <td colspan="6"><%=ClientData.full_name%></td>
+                          </tr>
+                          <tr>
+                            <td><b>ADDRESS</b></td>
+                            <td colspan="6"><%=ClientData.address%></td>
+                          </tr>
+                          <tr>
+                            <td><b>CITY</b></td>
+                            <td><%=ClientData.City.cityname%></td>
+                            <td style="text-align:center;"><b>STATE</b></td>
+                            <td><%=ClientData.State.statename%></td>
+                            <td style="text-align:center;"><b>ZIP CODE</b></td>
+                            <td><%=ClientData.zipcode%></td>
+                          </tr>
+                          <tr>
+                            <td><b>TEL</b></td>
+                            <td><%=ClientData.pnum%></td>
+                            <td style="text-align:center;"><b>Fax</b></td>
+                            <td colspan="3"><%=ClientData.fax%></td>
+                          </tr>
+                          <tr>
+                            <td><b>E-MAIL</b></td>
+                            <td colspan="6"><%=ClientData.email%></td>
+                          </tr>
+                          <tr>
+                            <td><b>PASSPORT#</b></td>
+                            <td colspan="6"><%=ClientData.passport%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Type of shipment</b></td>
+                            <td colspan="6"><%=foundAllData.typeofshipment%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Type of payment</b></td>
+                            <td colspan="6"><%=foundAllData.typeofpayment%></td>
+                          </tr>
+                     </table>
+                     <p style="text-align:center;font-weight:bold;">I give my written authorization to OLDSAILORS &nbsp;&nbsp; OCEAN &nbsp; &nbsp;SHIPPING, &nbsp;LLC, &nbsp;to file aes on my behalf in connection with the described cargo herin</p>
+ <% if(foundAllData.Consignee.length >= 1) { %>
+        <table style="width:100%;">
+                          <tr>
+                            <td colspan="6"><b>CONSIGNEE &nbsp;OVERSEAS &nbsp;(The person who shall be on the Bill of Lading)</b></td>
+                          </tr>
+                           <tr>
+                            <td><b>NAME</b></td>
+                            <td colspan="6"><%=foundAllData.Consignee[0].full_name%></td>
+                          </tr>
+                          <tr>
+                            <td><b>ADDRESS</b></td>
+                            <td colspan="6"><%=foundAllData.Consignee[0].address%></td>
+                          </tr>
+                          <tr>
+                            <td><b>CITY</b></td>
+                            <td><%=foundAllData.Consignee[0].city%></td>
+                            <td style="text-align:center;"><b>STATE/PROVINCE</b></td>
+                            <td><%=foundAllData.Consignee[0].state%></td>
+                            <td style="text-align:center;"><b>ZIP CODE</b></td>
+                            <td><%=foundAllData.Consignee[0].postalcode%></td>
+                          </tr>
+                          <tr>
+                            <td><b>TEL</b></td>
+                            <td colspan="6"><%=foundAllData.Consignee[0].pnum%></td>
+                          </tr>
+                          <tr>
+                            <td><b>COUNTRY</b></td>
+                            <td colspan="6"><%=ConsigneeCountryname%></td>
+                          </tr>
+                          <tr>
+                            <td><b>E-MAIL</b></td>
+                            <td colspan="6"><%=foundAllData.Consignee[0].email%></td>
+                          </tr>
+                          
+                     </table>
+                     <%  } %>
+                     <br>
+                     
+                     <!--Check if there is a container attached-->
+                     <% if(foundAllData.Cargo.length >= 1) { %>
+                       <!--Display container contents-->
+                      
+                          
+                         <table style="width:100%">
+                          <tr>
+                            <th colspan="2"><h4>Container Content</h4></th>
+                          </tr>
+                          <tr>
+                             <% foundAllData.Cargo.forEach(function(content) { %>
+                               <td>
+                                   <!--Cars First, start by checking if there are cars-->
+                                   <% if(content.Cars.length >= 1) { %>
+                                      <!--there are cars display data-->
+                                     <% content.Cars.forEach(function(carsdata){ %>
+                                           <p>
+                                              <h5>- <%=carsdata.cardetails.toLowerCase()%></h5>
+                                              <span><%=carsdata.vin%></span><br>
+                                              <span>AES:<%=carsdata.aes%></span>
+                                           </p>
+                                     <% }) %>
+                                   <% } %>
+                                   <p><b>-<%=content.personal_effect%></b></p>
+                               </td>
+                             <% }) %>
+                          </tr>
+                        </table>
+                     <% } %>
+ 
+ <h5 style="text-align:center;">EXPORT  &nbsp;POWER  &nbsp;OF  &nbsp;ATTORNEY</h5>
+ <p><b>TO:  &nbsp;UNITED  &nbsp;STATES &nbsp; CUSTOMS &nbsp; & BORDER  &nbsp; PROTECTION</b></p>
+ <p><b>RE:  &nbsp;EXPORTATION  &nbsp; OF &nbsp;CARGO &nbsp; FROM &nbsp; THE &nbsp;UNITED&nbsp; STATES</b></p>
+  
+  <p>
+      I, <b><u><%=ClientData.full_name%></u></b> 
+      , Hereby <b>AUTHORISE&nbsp; OLDSAILORS &nbsp; OCEAN &nbsp;SHIPPING, &nbsp; LLC 
+     &nbsp; AND &nbsp;THEIR &nbsp;EMPLOYEES:</b><br>
+      <p style="text-transform:lowercase;"><b>A) TO ACT AS MY FORWARDING AGENT FOR THE EXPORT CONTROL AND CUSTOMS PURPOSES.</b></p>
+    <p style="text-transform:lowercase;"><b> B) TO PREPARE, SIGN, DECLARE OR SWEAR TO ANY SHIPPER’S EXPORT DECLARATION REQUIRED BY LAW OR REGULATIONS IN CONNECTION WITH THE EXPORTATION OF ANY COMMODITY SHIPPED BY ME.</b></p>
+     <p style="text-transform:lowercase;"><b>C) TO DO ALL THE THINGS NECESSARY TO ENSURE COMPLIANCE WITH ALL REQUIREMENTS PURSUANT TO SECTION 192 OF THE U.S. CUSTOMS REGULATIONS.</b></p>
+  </p>
+  
+  
+  <p>
+     EXPORTER/SHIPPER &nbsp; NAME: &nbsp; <u><%=ClientData.full_name%></u>
+
+  </p>
+  <p> 
+   ADDRESS: &nbsp;<u> <%=ClientData.address%></u>
+  </p>
+  
+  <p>
+      <span style="float:right;">Date: <%=moment(foundAllData.createdAt).format("l")%></span>
+      SHIPPER/EXPORTER &nbsp; SIGNITURE:<br> <br><hr style="border:1px solid #000;">
+  </p>
+  
+  
+   <p style="text-align:center;">
+       <b>OLDSAILORS OCEAN SHIPPING LLC, CUSTOMER’S AGREEMENT FORM</b>
+   </p>
+   <p>
+       <b>ATTENTION:&nbsp;&nbsp;</b> <span style="text-transform:lowercase;">IF YOUR CONTAINER ARRIVES AT ITS FINAL DESTINATION AND IT IS NOT PAID IN FULL, WE RESERVE THE RIGHT TO AUCTION THE CONTENTS TO PAY THE OCEAN FREIGHT. </span>
+   </p>
+   <p><b>NOTICE&nbsp;TO&nbsp;SHIPPERS</b><br>
+   <span>
+       Freight payment (warehouse charges, inland transportation) must be paid in full at time of shipment or 50% of freight. If payment is not received within 7 business days after cargo sailed, cargo will be place on hold at port of destination and may acquire interest. Should there be storage/demurrage charges accrued overseas because of non-payment or that payment wasn’t received timely as requested herein, Please be advised that oldsailors Ocean Shipping may have no other alternative to exercise its lien rights to collect the ocean freight due on the cargo in any form it deems fit which may include the auction of cargo for the owed amount. Should oldsailors Ocean, LLC collect more than the requested ocean freight, balance will be return to the shipper/consignee of record. Customers that fail to adhere to our payment terms stated herein are informed that should there arise cases that errors were discovered on their bill of laden after the vessel sails, any penalty that may occur at the country of destination will be the customer’s account. All customers are advised to proof read dock receipts, drafts and house bills of lading at the time of receipt to ensure accuracy. 
+   </span>
+   
+   
+   </p>
+   
+   <p>
+       <b>CONSOLIDATION&nbsp;CUSTOMERS</b><br>
+       <span>It is our policy that all consolidation payment (ocean freight and clearing fee) be fully paid at the time of shipment. If for any reason full payment could not be made during shipment, ocean freight from the US must be fully paid a week prior to the vessel estimated time of arrival at the country of destination. Customers are encouraged to adhere to this policy so we may better serve you. Failure to adhere to this policy may result in storage /demurrage fees been levy on those customers at the country of destination. As we intend to provide a better service, we also require our customer’s full cooperation to deliver that special service. Absence of our customer’s full cooperation may hinder our ability to better serve those customers.</span>
+   </p>
+  
+  
+  <p>
+       <b>POD&nbsp;REGULATIONS</b><br>
+       <span>Please note that you are responsible to fully understand the rules and regulations of the country to which you are shipping to. If you ship vehicles/goods that are not accepted by the country you will be held responsible for any and all charges, fees, fines and penalties associated.</span>
+   </p>
+   
+   <p>
+       <b>CUSTOMS&nbsp;CALL&nbsp;BACK</b><br>
+       <span>If you fail to provide accurate information or intentionally give any false information concerning your container or if you place any stolen property into your container you are liable for any charges, fees, fines and penalties associated. Furthermore, US Customs has the right to request an inspection of any container at any time. If customs for any reason requests an inspection of your container, you will be responsible for all charges including, but not limited to, storage fees, examination fees, fines, and penalties under United States laws and regulations. </span>
+   </p>
+   
+   <p>
+      <b>WAREHOUSE&nbsp;DELIVERY&nbsp;REGULATION</b><br>
+       <span>
+           1. Comprehensive particulars of vehicles/ goods being delivered to our warehouse must be provided to our office prior to delivery.
+
+<br>2. Vehicle deliveries must be with the vehicles original certificate of title, owner’s name, owners telephone number, or else such vehicle may not be accepted by our facility.
+
+<br>3. Deliveries are by appointment ONLY. Deliveries without appointment May be refused.
+
+<br>4. Vehicles/goods received for shipment are provided 7 days to load without storage fee.
+
+<br>5. Vehicles/goods that remain in warehouse over 10 days (due to customer issues) will be charged $25.00 per day storage.
+
+<br>6. Customers are advised that all deliveries to the warehouse must be logged before they leave.
+
+<br>7. No personal items of things of value should be in the vehicles in the warehouse parking area. If this rule is not followed and theft or damage occurs oldsailors Ocean Shipping will not be held responsible.
+
+<br>8. All deliveries of personal items/goods other than vehicles are subject to a receiving fee of $45.00.
+
+<br>9. Customers are not allowed in the warehouse or loading area as our insurance does not cover such person(s). Customers who fail to adhere to this procedure and doing so at their own risk.
+       </span>
+   </p>
+   
+  <p>
+       <b>RORO&nbsp;SHIPMENT</b><br>
+       <span>All RORO shipments should be delivered directly to the port of loading. Any RORO shipment that is delivered to the warehouse for customers own reason will be charged $35.00 handling and storage fee that may be in addition to flatbed service and ocean freight. oldsailors Ocean Shipping is not responsible for any damage or theft that may occur at the port of loading or port of destination. </span>
+   </p>
+   
+     <p>
+       <b>CONTAINER&nbsp;LOADING&nbsp;PROCEDURE&nbsp;AND&nbsp;RESPONSIBILITY</b><br>
+       <span>
+           It is our duty and responsibility to inform all of our customers Lloyds of London Insurance Company, who covers marine insurance, has established that 40” HC containers are designed to only suit 2 vehicles. In their findings they concluded that should over two vehicles be loaded in a 40” HC container, such act shall be considered unsafe , unprofessional, and therefore not covered by the terms and conditions in case of claims for damage when reverse is case. As a consequence, oldsailors Ocean Shipping is likewise not responsible for any damage that may occur in cases where two or more vehicles are loaded in containers described herein. oldsailors Ocean Shipping is bound by Lloyds of London Insurance Company’s policy and will only load more than two (2) vehicles in a container at the customer’s request and risk.
+       </span>
+   </p>
+   
+   
+   <p>
+      I, <b><u><%=ClientData.full_name%></u></b> 
+      ,have read, and understand the oldsailors Ocean Shipping, LLC 
+customer agreement form. I accept all terms and conditions set forth herein and agree to adhere to all instructions
+By signing this document I am in agreement that if any charges in a monetary or legal matter present themselves in regards to my container,  I will assume all liability<br>
+     </p>
+   <p>
+      <span style="float:right;">Date: <%=moment(foundAllData.createdAt).format("l")%></span>
+      SHIPPER/EXPORTER&nbsp;SIGNITURE:<br> <br><hr style="border:1px solid #000;">
+  </p>
+  </div>
+</div>
+
+
+<div class="container" id="d"><br><br>
+<input type="button" id="create_pdf" value="Generate Document" class="btn btn-info" style="float:left;margin-right:10px;">  
+
+
+<form  id="send_emailForm" style="display:none;">
+    <input value='<%=ClientData.full_name%>' type="hidden" id="filename">
+
+  <a href="mailto:<%=ClientData.email%>" class="btn btn-success"><i class="fas fa-envelope-open"></i> Send Email</a>
+</form>
+
+  <a href="/powerOfAttroney_nra" class="btn btn-warning"> Cancel</a>
+
+<br>
+<br>
+<br>
+
+</div>
+
+
+
+
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+        <!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/js/cargo.js"></script>
+<script>
+$('#create_pdf').on('click', function () {  
+//   var fileName =  $("#filename").val();
+           
+//           var element = document.getElementById('element-to-print');
+//           html2pdf(element, {
+//             margin:       0.1,
+//             filename:     fileName+'_POA.pdf',
+//             image:        { type: 'jpeg', quality: 1 },
+//             html2canvas:  { dpi: 192, letterRendering: true },
+//             jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+//           });
+           window.print();
+           $("#send_emailForm").css("display", "block")
+});  
+        
+        
+       
+ 
+</script>
+</body>
+</html>

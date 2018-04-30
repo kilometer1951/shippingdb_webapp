@@ -1,0 +1,323 @@
+<html>
+    <head>
+        <title><%=foundAllData[0].Client[0].full_name%></title>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+         <script src="/js/html2pdf.js"></script>
+    <style>
+      body {
+       font-size:17px;
+   }
+       .h_1 {
+           width:100%;
+           float:left;
+       }
+      
+       .h_2 {
+           padding:10px;
+           width:100%;
+           border:1px solid #000;
+           float:right;
+       }
+     table, th,  td {
+    border: 1px solid black;
+    padding:5px;
+    border-collapse: collapse;
+
+}
+th, td {
+        text-align:center;
+}
+   </style>
+      <style media="print">
+ 
+        #d {
+          display:none;
+        }
+</style>
+    </head>
+    <body><br>
+<div id="element-to-print">
+  <div class="container">
+     <div class="i_1">
+       <h4 style="text-align:center;">NRA Contract</h4>
+       <p><b>From:</b> <%=stringText("OLDSAILORS OCEAN SHIPPING")%></p>
+       <p><b>To:</b> <%=foundAllData[0].Client[0].full_name%></p>
+       <p><b>Attn:</b> <%=foundAllData[0].Client[0].full_name%></p>
+       <p>
+         <b>
+           To accept this NRA:<br>
+       1.    REPLY &nbsp; ALL &nbsp; to this original email message.<br>
+       2.    Add the word "ACCEPT" to the SUBJECT &nbsp; LINE &nbsp; or to the first line of your REPLY &nbsp;ALL&nbsp;message.<br>
+
+We are pleased to offer the following NVOCC Negotiated Rate Arrangement (NRA).<br><br>
+
+A confirmation email will be sent to you promptly. If this NRA Offer is not accepted before the container is delivered to the port, then the offer is deemed to be withdrawn. This NRA Offer cannot be accepted if this message is forwarded or modified in any way. Due to FMC regulations, once accepted, the terms of the resulting NRA may not be amended.
+Please reference the following NRA number on all documents for the shipment(s) moved under this NRA.
+         </b>
+       </p>
+      
+     </div>
+     <div class="i_2">
+        <div class="row">
+          <div class="col-md-12">
+           <p style="font-size:20px;">
+             <b>NRA No: <%=string_ID(foundAllData[0]._id)%></b>
+            </p>
+            <p>Effective: <%=moment(foundAllData[0].effective_date).format("l")%></p>
+            <p>Expiration: <%=moment(foundAllData[0].expiration).format("l")%></p>
+            <p>Reference: <%=String_ID_2(foundAllData[0].Client[0]._id)%></p><br>
+            
+             <p style="font-size:17px;">
+             <b>Company Name: <%=stringText("OLDSAILORS OCEAN SHIPPING LLC")%></b>
+            </p>
+            <p>Carrier Rep: <%=foundAllData[0].carrier_rep%></p>
+            <p>Email: info@oldsailorsshippingonline.com</p>
+            <p>Phone: <%=stringText("301-213-6961")%></p>
+            <p>Address:  <%=stringText("13903 CHADSWORTH TERRACE, Laurel, MD 20707, USA")%></p>
+            <p>FMC-OTI No: <%=stringText("026435N")%> </p>
+            
+            
+            <br><br><br>
+            <p><b>SHIPPER: <%=foundAllData[0].Client[0].full_name%></b></p>
+            <p>Email: <%=foundAllData[0].Client[0].email%></p>
+            <p>Contact: <%=foundAllData[0].Client[0].pnum%></p>
+           
+          </div>
+          
+        </div>
+     </div>
+     <div class="i_3 "><br><br>
+       <p><b>Origin and Destination Locations</b></p>
+       <div class="row">
+          <div class="col-md-12" style="border:1px solid #bdbdbd  ;">
+          
+            <p><b>Bill of Lading Origin(s): </b><%=foundAllData[0].bill_of_lading_oring%></p><hr>
+            <p><b>Ocean Port (s) of Loading (Origin VIA):</b> <%=foundAllData[0].ocean_port_of_loading%></p><hr>
+            <p><b>Bill of Lading Destination:</b> <%=foundAllData[0].bill_of_lading_destination%></p><hr>
+            <p><b>Ocean Port (s) of Discharge (Destination VIA):</b> <%=foundAllData[0].port_of_discharge%></p>
+           
+          </div>
+           <p style="font-size:17px;">
+             <b>Origin and Destination Locations</b>
+            </p>
+          <div class="col-md-12" style="border:1px solid #bdbdbd  ;">
+           
+            <p><b>Rate:</b> <%=foundAllData[0].rate%></p><hr>
+            <p><b>Rate Basis:</b> <%=foundAllData[0].rate_basis%></p><hr>
+            <p><b>Cargo Quantity:</b> <%=foundAllData[0].cargo_qantity%></p><hr>
+            <p><b>Minimum:</b> <%=foundAllData[0].minimum%></p><hr>
+            <p><b>Maximum:</b> <%=foundAllData[0].maximum%></p><hr>
+            <p><b>Origin Service:</b> <%=foundAllData[0].origin_service%></p><hr>
+            <p><b>Destination Service:</b> <%=foundAllData[0].destination_service%></p>
+          </div>
+        </div><br>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Commodity </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Applicable Rules / Surcharges </td>
+              <td>
+               <span>Rule 2-150 - DOCUMENTATION FEES</span>  <br>
+               <span>Rule 2-16 0 - AMS CHARGES</span>  <br>
+               <span>Rule 2-18 0 - AES/SED HANDLING FEE</span>  <br>
+               <span>Rule 2-19 0 - EU ENTRY SUMMARY DECLARATION CHARGE (ENS)</span>  <br>
+               <span>Rule 2-20 0 - JAPAN ADVANCE MANIFEST FILING RULES FEE (AFR)</span>  <br>
+               <span>Rule 10 -0 10 - NON-RUNNER SURCHARGE</span>  
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+          <div class="html2pdf__page-break"></div>
+
+        <p><b>Special Conditions</b></p>
+        <div style="border:1px solid #bdbdbd;padding:10px;">
+          <p><%=foundAllData[0].special_conditions%></p>
+        </div><br>
+        <!--<div class="html2pdf__page-break"></div>-->
+        <p><b>Basic Conditions</b></p><br>
+        <div style="border:1px solid #bdbdbd;padding:10px;">
+          <p>1. Service provided pursuant to this NRA is subject to Carrier's governing rules tariff, which is accessible at www.dpiusa.com in compliance with FMC Regulations as provided in 46 CFR 532.7.</p>
+          <p>2. This NRA is assigned a unique NRA number which is shown above .</p>
+          <p>3. Except as otherwise provided in this NRA, all rates agreed in this NRA are subject to surcharges and assesso rials as
+published in Carrier's governing tariff rules. The surcharges and assessorials that will be applied to each NRA are those that are in effect as of the date the first shipment under each NRA is received by Carrier, and such surcharges and assessorials shall remain fixed at that leve l for the period the NRA is in effect.
+</p>
+          <p>4. The NRA shipper and Carrier agree that the shipper's identity, the rates, charges, terms and conditions offered and /or agreed in an NRA shall be kept confidential from any othe r shipperor carrier. Any breach of this confidentiality agreement may give rise to a cause of action for actual damages proven to result from such breach of confidentiality.</p>
+          <p>5. This Negotiated Rate Arrangement (NRA) is made and concluded between the NVOCC named here in, here inafterreferred to as " NVOCC", and the NRA Shipper named here in, where by the parties mutually agree asset forth in this NRA. The parties have executed this NRA through their responsible representatives duly authorized as of the dates noted in this NRA. By executing this NRA, the shipper's represe ntative as named here in here by certifies he /she is duly authorized by the NRA Shipper to authorize NRA Shipper's agreement to this NRA.</p>
+        </div>
+     </div>
+     <br>
+     
+     
+     <!--<div class="html2pdf__page-break"></div>-->
+     
+     <!--BOOKING CONFIRMATION-->
+     <div class="header">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="h_1">
+                 <h4 style="padding-left:5px;"><b>Booking&nbsp;Confirmation</b></h4>
+                     <table style="width:100%">
+                           <tr>
+                            <td><b>File Number</b></td>
+                            <td><%=foundAllData_1._id%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Date</b></td>
+                            <td><%=moment(foundAllData_1.createdAt).format("l")%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Carrier</b></td>
+                            <td><%=foundAllData_1.carrier%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Carrier Booking N.</b></td>
+                            <td><%=foundAllData_1.booking_number%></td>
+                          </tr>
+                     </table>
+                    
+              </div>
+            </div>
+            
+        </div>
+    </div>
+   
+                <table style="width:100%;">
+                          <tr >
+                            <td >
+                                <h5><b>SHIPPER</b></h5>
+                                <span><%=ClientData.full_name%></span><br>
+                                <span><%=ClientData.address%>,</span>
+                                <span><%=ClientData.City.cityname%>,</span>
+                                <span><%=ClientData.State.statename%>,</span>
+                                <span><%=ClientData.zipcode%>,</span>
+                                <span>United States</span><br>
+                                <span><%=ClientData.pnum%></span><br>
+                                <span><%=ClientData.email%></span><br>
+
+                            </td>
+                            <td colspan="6">
+                                <span><b>SERVICE&nbsp;PROVIDER&nbsp;FOR<br>PRECARRIAGE</b></span><br><br>
+                                <span style="font-size:25px;font-weight:lighter;"><%=foundAllData_1.carrier%></span>
+                                
+                            </td>
+                          </tr>
+                         
+                        
+                     </table>
+                    
+                     
+   <table style="width:100%;">
+                        
+                         <tr>
+                            <td><b>Cut Off Date</b></td>
+                            <td><%=moment(foundAllData_1.cut_off_date).format("l")%></td>
+                            <td><b>Sailing/ETD</b></td>
+                            <td><%=moment(foundAllData_1.sail_date).format("l")%></td>
+                            <td><b>Arrival/ETA</b></td>
+                            <td><%=moment(foundAllData_1.arrival_date).format("l")%></td>
+                          </tr>
+                        <tr>
+                            <td><b>Pickup Terminal</b></td>
+                            <td><%=foundAllData_1.pickup_terminal%></td>
+                            <td><b>Return Depot</b></td>
+                            <td colspan="3"><%=foundAllData_1.return_depot%></td>
+                          </tr>
+                         <tr>
+                            <td><b>Place of Receipt</b></td>
+                            <td><%=foundAllData_1.place_of_recript%></td>
+                            <td><b>Port of Loading</b></td>
+                            <td colspan="3"><%=foundAllData_1.port_of_loading%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Port of Discharge</b></td>
+                            <td><%=foundAllData_1.port_of_discharge%></td>
+                            <td><b>Place of Delivery</b></td>
+                            <td colspan="3"><%=foundAllData_1.place_of_delivery%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Vessel</b></td>
+                            <td><%=foundAllData_1.vessel_name%></td>
+                            <td style="text-align:center;"><b>Voyage</b></td>
+                            <td colspan="3"><%=foundAllData_1.voyage_number%></td>
+                          </tr>
+                          <tr>
+                            <td><b>Total N. Of Container <br> & Equiqment size</b></td>
+                            <td><%=foundAllData_1.total_number_of_container%>,<br><%=foundAllData_1.equipment_size%></td>
+                            <td><b>Commodity <br>& Description of Goods</b></td>
+                            <td colspan="3"><%=foundAllData_1.commodity_des%></td>
+                          </tr>
+                          <tr>
+                            <td><b>RATE</b></td>
+                            <td><%=foundAllData_1.rate%></td>
+                            <td><b>Notes</b></td>
+                            <td colspan="3"><%=foundAllData_1.notes%></td>
+                          </tr>
+                     </table>
+                     <span>
+                         Container Needs To Return To The Port 5 Days From Delivery,after Per Diem Charges Of $85/ Day Applies. Once The Container Is Loaded Please Provide Us With Container #, Seal #, Pieces Count & Weight
+                     </span>
+     
+     
+     
+  </div>
+</div>
+
+
+<div class="container" id="d"><br><br>
+<input type="button" id="create_pdf" value="Generate Document" class="btn btn-info" style="float:left;margin-right:10px;">  
+
+<form  id="send_emailForm" style="display:none;">
+    <input value='<%=foundAllData[0].Client[0].full_name%>' type="hidden" id="filename">
+
+  <a href="mailto:<%=foundAllData[0].Client[0].email%>" class="btn btn-success"><i class="fas fa-envelope-open"></i> Send Email</a>
+</form>
+
+  <a href="/powerOfAttroney_nra" class="btn btn-warning"> Cancel</a>
+
+<br>
+<br>
+<br>
+
+</div>
+
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+        <!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/js/cargo.js"></script>
+<script>
+$('#create_pdf').on('click', function () {  
+//   var fileName =  $("#filename").val();
+           
+//           var element = document.getElementById('element-to-print');
+//           html2pdf(element, {
+//             margin:       0.1,
+//             filename:     fileName+'_POA.pdf',
+//             image:        { type: 'jpeg', quality: 1 },
+//             html2canvas:  { dpi: 192, letterRendering: true },
+//             jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+//           });
+           window.print();
+           $("#send_emailForm").css("display", "block")
+});  
+        
+       
+ 
+</script>
+</body>
+</html>

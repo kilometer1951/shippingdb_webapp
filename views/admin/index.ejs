@@ -1,0 +1,188 @@
+<style>
+    .ko {
+        height:300px;
+        width:100%;
+       
+        padding:10px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+       
+            <div  class="ko" style="background-color:#f1f8e9;margin-top:70px;">
+                <h5 style="text-align:center;">USERS</h5>
+                <button class="btn btn-primary">New user</button>
+                <table class="table table-striped">
+                    <thead class="table-success">
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Role</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody class="table_body">
+                      <tr>
+                          <td>Serge</td>
+                          <td>Shalo</td>
+                          <td>Admin</td>
+                          <td>
+                              <button class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+                              <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>
+                          </td>
+                     </tr>
+                    
+                     <tr>
+                          <td>Serge</td>
+                          <td>Shalo</td>
+                          <td>Admin</td>
+                          <td>
+                              <button class="btn btn-success btn-sm "><i class="fas fa-pencil-alt"></i> Edit</button>
+                              <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>
+                          </td>
+                     </tr>
+                    
+                    </tbody>
+              </table>
+            </div>
+        </div>
+         <div class="col-md-6">
+            <div style="background-color:#d0d6e2;margin-top:70px;" class="ko">
+                <h5 style="text-align:center;">COUNTRIES</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-gorup">
+                            <input class="form-control" name="countryname" id="countryname" placeholder="Country Name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-gorup">
+                            <button class="btn btn-primary addcountry removeCountry_class" id="">Save</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive" style="overflow-x:hidden;overflow-y:auto;height:215px;">
+                    <table class="table table-striped">
+                            <thead class="table-warning">
+                              <tr>
+                                <th>Country</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody class="country_table_body">
+                             <% Country.forEach(function(content){ %>
+                             <tr>
+                                  <td><%=content.countryname%></td>
+                                  <td>
+                                      <button class="btn btn-success btn-sm editcountry" id="<%=content._id%>"><i class="fas fa-pencil-alt"></i> Edit</button>
+                                      <button class="btn btn-danger btn-sm del_country" id="<%=content._id%>"><i class="far fa-trash-alt"></i> Delete</button>
+                                  </td>
+                             </tr>
+                            <% }) %>
+                            </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div style="background-color:#d0d6e2;margin-top:10px;" class="ko">
+                <h5 style="text-align:center;">STATES</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-gorup">
+                            <select class="form-control" name="country_dropdown" id="country_dropdown">
+                                <option>Select a country</option>
+                                <% Country.forEach(function(content){ %>
+                                   <option value="<%=content._id%>"><%=content.countryname%></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-gorup">
+                            <input class="form-control" name="states" id="states" placeholder="State Name">
+                        </div>
+                    </div><br><br>
+                    <div class="col-md-12" style="text-align:center;">
+                        <div class="form-gorup">
+                            <button class="btn btn-primary addstates" id="">Save</button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                   <div class="table-responsive" style="overflow-x:hidden;overflow-y:auto;height:140px;">
+                    <table class="table table-striped">
+                            <thead class="table-warning">
+                              <tr>
+                                <th>States</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody class="states_table_body">
+                             <% States.forEach(function(content){ %>
+                             <tr>
+                                  <td><%=content.statename%></td>
+                                  <td>
+                                      <button class="btn btn-success btn-sm editstates" id="<%=content._id%>"><i class="fas fa-pencil-alt"></i> Edit</button>
+                                      <button class="btn btn-danger btn-sm del_states" id="<%=content._id%>"><i class="far fa-trash-alt"></i> Delete</button>
+                                  </td>
+                             </tr>
+                            <% }) %>
+                            </tbody>
+                      </table>
+                </div>
+                </div>
+            </div>
+        </div>
+          <div class="col-md-6">
+            <div style="background-color:#d0d6e2;margin-top:10px;" class="ko">
+                <h5 style="text-align:center;">CITIES</h5>
+                <div class="row">
+                   <div class="col-md-6">
+                        <div class="form-gorup">
+                            <select class="form-control" name="state_dropdown" id="state_dropdown">
+                                <option>Select a state</option>
+                                <% States.forEach(function(content){ %>
+                                   <option value="<%=content._id%>"><%=content.statename%></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-gorup">
+                            <input class="form-control" name="city" id="city" placeholder="City Name">
+                        </div>
+                    </div><br><br>
+                    <div class="col-md-12" style="text-align:center;">
+                        <div class="form-gorup">
+                            <button class="btn btn-primary addcities" id="">Save</button>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="table-responsive" style="overflow-x:hidden;overflow-y:auto;height:140px;">
+                    <table class="table table-striped">
+                            <thead class="table-warning">
+                              <tr>
+                                <th>Cities</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody class="city_table_body">
+                             <% Cities.forEach(function(content){ %>
+                             <tr>
+                                  <td><%=content.cityname%></td>
+                                  <td>
+                                      <button class="btn btn-success btn-sm editcity" id="<%=content._id%>"><i class="fas fa-pencil-alt"></i> Edit</button>
+                                      <button class="btn btn-danger btn-sm del_city" id="<%=content._id%>"><i class="far fa-trash-alt"></i> Delete</button>
+                                  </td>
+                             </tr>
+                            <% }) %>
+                            </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 

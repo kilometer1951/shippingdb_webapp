@@ -1,0 +1,221 @@
+
+<style>
+    .client-body {
+        margin-top:20px;
+        z-index:-1;
+    }
+    
+    .clientDataSection {
+        height:70vh;
+        overflow-y:auto;
+        overflow-x:hidden;
+    }
+    
+    .loader {
+            width:100px;
+            height:100px;
+            top:0;
+            margin-top:40vh;
+            margin-left:79vh;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top-color: #1abc9c;
+            border-bottom-color: #3498db;
+            animation: coloredspin 4s linear infinite;
+            display:none;
+            position:absolute;
+            z-index:1;
+
+        }
+        .loader1 {
+            width:100px;
+            height:100px;
+            margin-left:48vh;
+            top:0;
+            margin-top:100px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top-color: #1abc9c;
+            border-bottom-color: #3498db;
+            animation: coloredspin 4s linear infinite;
+            display:none;
+            position:absolute;
+            z-index:1;
+
+        }
+        @keyframes coloredspin {
+              0%{
+                transform: rotate(0deg) scale(1);
+                border-top-color: #1abc9c;
+                border-bottom-color: #1abc9c;
+              }
+              25% {
+                border-top-color: #2ecc71;
+                border-bottom-color: #2ecc71;
+              }
+              50% {
+                transform: rotate(360deg) scale(1.05);
+                border-top-color: #3498db;
+                border-bottom-color: #3498db;
+              }
+              75% {
+                border-top-color: #9b59b6;
+                border-bottom-color: #9b59b6;
+              }
+              100%{
+                transform: rotate(720deg) scale(1);
+                border-top-color: #1abc9c;
+                border-bottom-color: #1abc9c;
+              }
+            }
+            
+            
+
+</style>
+<div class="container-fluid">
+    <div style="margin-top:70px;"></div>
+    <h3 class="text-center">Bill Of Lading</h3>
+    <div class="client-body" id="clientBody">
+        <form>
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <select class="form-control" id="clients_dropdown">
+                        <option>Display data per client</option>
+                        <% clientsData.forEach(function(clients){ %>
+                           <option value="<%=clients._id%>"><%=clients.full_name%></option>
+                        <% }) %>
+                    </select>
+                  </div>
+              </div>
+              
+              <div class="col-md-8">
+                  <div class="form-group" style="float:right;">
+                    <button type="button" class="btn btn-warning newCargo" id="newCargo" onclick="location.reload()"><i class="fas fa-sync-alt"></i> Reload Page Data</button>
+                  </div>
+              </div>
+            </div>
+        </form>
+            <table class="table table-striped">
+                <thead class="table-success">
+                  <tr>
+                    <th>Date Created</th>
+                    <th>Clients Name</th>
+                    <th style="background-color:#00897b  ;color:#fff;">Container Number</th>
+                    <th style="background-color:#3F729B  ;color:#fff;">Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="table_body">
+                <% foundAllData.forEach(function(content){ %>
+                  <tr id="rowID">
+                    <td><%=(moment.parseZone(content.bill_of_lading_date).format('l') === moment.parseZone(new Date()).format('l') ? 'Today': moment(content.bill_of_lading_date).format("ll"))%></td>
+                    <td><%=content.Client[0].full_name%></td>
+                    <td><%=content.container_num%></td>
+                    <td><%=content.bill_of_lading_status !== "" ? "Created": "Pending"%></td>
+                    <td>
+                        <% if( content.bill_of_lading_status === ""){ %>
+                          <button class="btn btn-outline-primary btn-sm newFormBtn" data-toggle="modal" data-target="#bill_of_ladingForm" id="<%=content._id%>"><i class="fab fa-wpforms"></i> New Bill of Lading</button>
+                        <% } %>
+                        <a class="btn btn-outline-success btn-sm " href="/d_r/<%=content._id%>/email/<%=content.Client[0]._id%>/cargo/<%=content.Cargo%>/consignee/<%=content.Consignee%>/booking_c/<%=content.BookingConfirmation%>"><i class="fas fa-envelope-open"></i> Email</a>
+                        <a class="btn btn-outline-info btn-sm" href="/bill_of_lading/<%=content._id%>/editRoute"><i class="far fa-edit"></i> Edit</a>
+                        <!--<button class="btn btn-outline-danger btn-sm deleteMessage1" id="<%=content._id%>" data-toggle="modal" data-target=".deleteMessageModal1"><i class="far fa-trash-alt"></i> Delete</button>-->
+                    </td>
+                  </tr>
+                 <% }) %>
+                </tbody>
+              </table>
+    </div>
+</div>
+
+
+<!--Delete Client-->
+<div class="modal fade deleteMessageModal1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+         <div style="padding:10px;text-align:center;">
+           <p>Delete this data ?</p>
+           <span id="client_id"></span>
+           <button class="btn btn-info" data-dismiss="modal">Cancel</button>
+           <button class="btn btn-danger delete1" id="">Delete</button>
+         </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="bill_of_ladingForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">New Bill Of Lading</h5>
+        <p class="cargo_id" id=""></p>
+        <p class="bookingc_id" id=""></p>
+        <button type="button" class="close" onclick="location.reload()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+             <div class="row">
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Description of Charges</label>
+                         <textarea class="form-control" id="description_of_charges"> </textarea>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Destination Agent</label>
+                         <textarea class="form-control" id="destination_agent"> </textarea>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Co-Loaded With</label>
+                         <input type="text" class="form-control" id="co_loaded_with">
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Total Pre-Paid</label>
+                         <input type="text" class="form-control" id="total_pre_paid">
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Total Collected</label>
+                         <input type="text" class="form-control" id="total_collected">
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Containerlized</label><br>
+                         <label class="radio-inline " style="margin-right:30px;">
+                           <input type="radio" name="containerlized" id="yes" Value="Yes" > Yes
+                         </label>
+                         <label class="radio-inline">
+                            <input type="radio" name="containerlized" id="no" value="No" > No
+                         </label>
+                     </div>
+                 </div>
+             </div>
+      </div>
+      <div class="modal-footer" >
+        <button type="button" class="btn btn-primary createForm" id="">Create Form</button>
+        <button type="button" class="btn btn-primary createFormAndEmail" id="">Create Form and Email</button>
+        <button type="button" class="btn btn-secondary" onclick="location.reload()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="loader"></div>
+<div class="nodata" style="text-align:center;font-size:40px;display:none;">
+  <p>
+    <i class="fas fa-people-carry"></i><br>
+    <span class="nodata_text">No Cargo Found</span>
+  </p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="/js/bill_lading.js"></script>

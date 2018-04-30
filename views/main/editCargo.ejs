@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Cargo</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     <!--<link rel="stylesheet" href="/css/newcargo.css">-->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        body {
+            background-color:#fafafa ;
+        }
+        .cargoSection {
+            width:70%;
+            margin:0 auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            background-color: #fff;
+            border-radius:5px;
+            margin-bottom:20px;
+        }
+           .cargoDataFields:nth-of-type(odd){
+              background-color: #e8f5e9 ;
+            }
+            
+            .cargoDataFields:nth-of-type(even){
+              background-color: #bbdefb ;
+            }
+       
+                  
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+       
+    </style>
+</head>
+<body>
+   <div class="container-fluid"><br>
+      <div class="cargoSection">
+          <h3 class="text-center" style="padding:20px;">Edit Cargo</h3>
+          <% foundData.Cars.forEach(function(cars){ %>
+             <% if(cars.cardetails !== "") {%>
+                  <button class="btn btn-danger btn-sm open_del_dialog" id="<%=cars._id%>" data-toggle="modal" data-target=".deleteMessageModal1" style="float:right;"><i class="far fa-trash-alt"></i> Delete</button>
+                  <p id="<%=foundData._id%>" style="display:none;" class="cargo_id_10"></p>
+                  <div class="cargoDataFields">
+                   <div class="row" style="padding:20px;">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Car Details:</label>
+                            <input type="text" class="form-control" name="cardetails" id="cardetails<%=cars._id%>" value="<%=cars.cardetails%>">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Vin:</label>
+                            <input type="text" class="form-control" name="vin" id="vin<%=cars._id%>" value="<%=cars.vin%>">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Value For AES:</label>
+                            <input type="text" class="form-control" name="aes" id="aes<%=cars._id%>" value="<%=cars.aes%>">
+                          </div>
+                       </div>
+                       <div class="col-md-6" style="text-align:center;">
+                          <div class="form-group">
+                            <button type="button" class="btn btn-primary savechanges_cargo" id="<%=cars._id%>" onclick="updateCars('<%=cars._id%>', '<%=foundData._id%>')"> Save Changes</button>
+                          </div>
+                      </div>
+                      <div class="col-md-6" style="text-align:center;">
+                          <div class="form-group">
+                            <a class="btn btn-warning" href="/cargo">Return Back</a>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+        <div class="personal_effectFeilds" style="padding:20px;">
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Personal Effects:</label>
+                    <textarea class="form-control" name="personal_effect" rows="6" style="resize:none;" id="personal_effect"><%=foundData.personal_effect%></textarea>
+                  </div>
+               </div>
+               <div class="col-md-6" style="text-align:center;">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-primary savechanges_personaleffect" id="<%=foundData._id%>"> Save Changes</button>
+                  </div>
+              </div>
+              <div class="col-md-6" style="text-align:center;">
+                  <div class="form-group">
+                    <a class="btn btn-warning" href="/cargo">Return Back</a>
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+<!--Delete Client-->
+<div class="modal fade deleteMessageModal1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+         <div style="padding:10px;text-align:center;">
+           <p>Delete this data ?</p>
+           <button class="btn btn-info" data-dismiss="modal">Cancel</button>
+           <button class="btn btn-danger delete_10" id="">Delete</button>
+         </div>
+    </div>
+  </div>
+</div>
+      
+        
+<div id="snackbar">Record Updated</div>
+        
+<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+<!-- jQuery library -->
+        
+        
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script src="/js/cargo.js"></script>
+<script>
+
+
+ $(document).on("click", ".open_del_dialog", function(){
+       var car_id = $(this).attr("id"); 
+       $(".delete_10").attr("id", car_id); 
+       
+    });
+    
+    
+    $(document).on("click", ".delete_10", function(){
+       var car_id = $(this).attr("id"); 
+       var cargo_id_10 = $(".cargo_id_10").attr("id"); 
+       
+       $.post("/cars/"+ car_id +"/delete/"+ cargo_id_10, function(data) {
+           location.reload();
+       });
+       
+    });
+</script>
+</body>
+</html>
